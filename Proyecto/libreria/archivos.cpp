@@ -34,8 +34,5 @@ int leerArchivo(ifstream archivo, claseG *aux){
         return errArchivo::errArchivoLeer;
     }
 
-
-
-
     return 0;
 }
