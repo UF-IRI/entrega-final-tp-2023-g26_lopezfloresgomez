@@ -97,8 +97,7 @@ struct clase {
 
 };
 */
-int leerArchivoClases(ifstream &archivo, clase* &clase, unsigned int &tamP){
-
+int leerArchivoClases(ifstream &archivo, clase* &clase, unsigned int &tamC){
     char delimiter = ',';
     string line;
 
@@ -112,14 +111,14 @@ int leerArchivoClases(ifstream &archivo, clase* &clase, unsigned int &tamP){
             iss.clear();
             iss<<line;
 
-            incrementarClases(clase, tamP);
+            incrementarClases(clase, tamC);
 
             getline(iss, line, delimiter);
-            clase[tamP-1].Turnos->idclas= stoi(line);
+            clase[tamC-1].Turnos->idclas= stoi(line);
             getline(iss, line, delimiter);
-            clase[tamP-1].nombreclas=line;
+            clase[tamC-1].nombreclas=line;
             getline(iss, line);
-            clase[tamP-1].Turnos->horario=stof(line);
+            clase[tamC-1].Turnos->horario=stof(line);
         }
 
     }
