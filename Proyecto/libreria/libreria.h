@@ -24,6 +24,8 @@ struct clase {
     Turno* Turnos;
 
 };
+typedef clase clase;
+
 struct claseG {
     string nombreClaS;
     Turno* Turnos;
@@ -35,7 +37,6 @@ turnos, que engloba la info de cada horario*/
 /* que hacer para el relleno de las estructuras, ya que no tenemos una estructura generica que nos permita realizar comparativas con la informacion
  y a su vez es necesario dar informacion a estructuras que deberan ser rellenadas con los datos de los archivos, por ejemplo nombreclas,idclase
 cupo_max*/
-typedef clase clase;
 
 struct usuario
 {

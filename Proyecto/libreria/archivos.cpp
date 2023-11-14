@@ -28,14 +28,10 @@ struct claseG {
 */
 
 int leerArchivoGen(ifstream &archivo, claseG* claseGen){
-
     int i=0,fila=0;
-
-
     char delimiter = ',';
     string line;
     string elemento;
-
 
     while (archivo.good()) {
         getline(archivo, line);
@@ -80,11 +76,69 @@ int leerArchivoGen(ifstream &archivo, claseG* claseGen){
         i = 0; // Reinicializar el contador i
     }
 
-    /*
-    int sol=4;
-    for(int aux=0; aux<11; aux++){
-        cout << claseGen[sol].nombreClaS << " " <<claseGen[sol].Turnos[aux].horario<< endl;
-    }*/
 
     return 0;
+}
+
+/*
+ * // crear una estructura generica, con datos llenos por la informacion dada por la consigna (horarios, tipo de clase)
+typedef struct {
+    unsigned int cupoMax;//cupo maximo de personas por clase en este horario
+    float horario;// posible horario de clase
+    unsigned int cantInscriptos;// cupos ocupados, reagrupar original
+    unsigned int* alumnos;
+    unsigned int idclas;
+} Turno;
+
+struct clase {
+    string nombreclas;
+    unsigned int cantTurnos;
+    Turno* Turnos;
+
+};
+*/
+int leerArchivoClases(ifstream &archivo, clase* &clase, unsigned int &tamP){
+
+    char delimiter = ',';
+    string line;
+
+    stringstream iss;
+
+    if(archivo.is_open()){
+
+        getline(archivo, line);
+
+        while(!archivo.eof() && getline(archivo, line)){
+            iss.clear();
+            iss<<line;
+
+            incrementarClases(clase, tamP);
+
+            getline(iss, line, delimiter);
+            clase[tamP-1].Turnos->idclas= stoi(line);
+            getline(iss, line, delimiter);
+            clase[tamP-1].nombreclas=line;
+            getline(iss, line);
+            clase[tamP-1].Turnos->horario=stof(line);
+        }
+
+    }
+    return 1;
+}
+
+void incrementarClases(clase* &clases, unsigned int &tam){
+    if(clases==nullptr){
+        if(tam<=0){
+            clases = new clase[++tam];
+        }
+        return;
+    }
+
+    clase* temporal = new clase[++tam];
+
+    for(unsigned int i = 0; i < tam-1; i++){
+        temporal[i] = clases[i];
+    }
+    delete[] clases;
+    clases = temporal;
 }
