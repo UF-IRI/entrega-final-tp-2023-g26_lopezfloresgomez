@@ -11,7 +11,7 @@ using namespace std;
 
 // crear una estructura generica, con datos llenos por la informacion dada por la consigna (horarios, tipo de clase)
 typedef struct {
-    unsigned int cupo_max;//cupo maximo de personas por clase en este horario
+    unsigned int cupoMax;//cupo maximo de personas por clase en este horario
     float horario;// posible horario de clase
     unsigned int cantInscriptos;// cupos ocupados, reagrupar original
     unsigned int* alumnos;
@@ -74,5 +74,7 @@ class LIBRERIA_EXPORT Libreria
 public:
     Libreria();
 };
+
+int leerArchivoGen(ifstream archivo, claseG *aux);
 
 #endif // LIBRERIA_H
