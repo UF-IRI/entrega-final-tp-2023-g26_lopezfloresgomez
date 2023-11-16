@@ -4,8 +4,8 @@
 #include "libreria_global.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
-
 
 using namespace std;
 
@@ -77,5 +77,11 @@ public:
 };
 
 int leerArchivoGen(ifstream archivo, claseG *aux);
+bool reserva(usuario * usuarios,clase* clases);
+bool verificarPago(usuario usuario);
+bool cupomax(clase clase,int m, claseG *array);
+bool correspondencia (clase clase, int m,claseG *claseGe);
+
+
 
 #endif // LIBRERIA_H

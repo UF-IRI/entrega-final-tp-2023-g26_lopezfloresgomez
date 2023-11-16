@@ -1,9 +1,5 @@
 #ifndef ARCHIVOS_H
 #define ARCHIVOS_H
-
-#include <iostream>
-#include <fstream>
-#include <string>
 #include "libreria.h"
 
 enum errArchivo { errArchivoLeer = -1,  exitoArchivoLeer = 1 };

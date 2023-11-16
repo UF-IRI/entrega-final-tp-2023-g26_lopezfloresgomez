@@ -1,7 +1,5 @@
 #include "libreria.h"
-#include <iostream>
-#include <fstream>
-#include <string>
+
 
 Libreria::Libreria()
 {
