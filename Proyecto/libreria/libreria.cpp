@@ -35,18 +35,20 @@ bool correspondencia (clase clase, int m,claseG *claseGe)
     {
         if(clase->idclas==claseGe.idclas && clase->turno.horario == claseGe.turno.horario)// comparativa de los archivos con el generico
             return 1;
+        claseGe++
         else
             return -1;
     }
 }
-bool cupomax(clase clase,int m)
+bool cupomax(clase clase,int m, claseG *array)
 {
-    clase *aux= clase+m-1;
-    while(clase !=aux)// recorreriamos el generico, ya que lo hacemos como funcion individual
+    claseG *aux = claseG+m-1;
+    while(array !=aux)// recorreriamos el generico, ya que lo hacemos como funcion individual
     {
-        if(clase->turnos.cantinscriptos<clase->turnos.cupomax)
+        if(clase->turnos.cantinscriptos<array->turnos.cupomax)
             return 1;
-        else
+        array++
+            else
             return -1;
     }
 }
