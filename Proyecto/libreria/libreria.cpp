@@ -27,13 +27,13 @@ bool verificarPago(usuario usuario)// N cantidad de struc alumnos vigentes,bool
         return -1; // usuario no realizo el pago mensual
 }
 
-bool correspondencia (clase clase, int m)
+bool correspondencia (clase clase, int m,claseG *claseGe)
 {
-    clase *aux = clase+m-1;
+    claseGe *aux = claseGe+m-1;
 
-    while( clase != aux)// el recorrido del puntero seria unicamente para el generico que analizaria si existe la correspondecia, preguntar
+    while( claseGe != aux)//
     {
-        if(clase->nombreclas==clasesg.nombreclas && clase->turno.horario == clasesg.turno.horario)// comparativa de los archivos con el generico
+        if(clase->idclas==claseGe.idclas && clase->turno.horario == claseGe.turno.horario)// comparativa de los archivos con el generico
             return 1;
         else
             return -1;
