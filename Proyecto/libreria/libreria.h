@@ -47,7 +47,7 @@ struct usuario
     int idCliente;
     int estado;
     string telefono;
-    int horario;
+
 };
 struct Inscripcion
 {

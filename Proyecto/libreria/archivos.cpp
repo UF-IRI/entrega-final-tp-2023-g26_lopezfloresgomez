@@ -97,7 +97,7 @@ struct clase {
 
 };
 */
-int leerArchivoClases(ifstream &archivo, clase* &clase, unsigned int &tamC){
+int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC){
     char delimiter = ',';
     string line;
 
@@ -141,3 +141,62 @@ void incrementarClases(clase* &clases, unsigned int &tam){
     delete[] clases;
     clases = temporal;
 }
+
+int leerArchivoUsuario(ifstream &archivo, usuario* &usuarios, unsigned int &tamU)
+{
+    char delimiter= ',';
+    string line;
+    stringstream iss;
+
+    if(archivo.is_open)
+        {
+
+            getline(archivo, line);
+
+            while(!archivo.eof() && getline(archivo, line))
+            {
+                iss.clear();
+                iss<<line;
+
+                incrementarUsuario(usuario, tamU);
+
+                getline(iss, line, delimiter);
+                usuario[tamU-1].idCliente= stoi(line);
+                getline(iss, line, delimiter);
+                usuario[tamU-1].nombre =line;
+                getline(iss, line,delimiter);
+                usuario[tamU-1].apellido=line;
+                getline(iss,line,delimiter);
+                usuario[tamU-1].email=line;
+                getline(iss,line,delimiter);
+                usuario[tamU-1].fechaNac=line;
+                getline(iss,line);
+                usuario->[tamU-1].estado=stoi(line;)
+
+            }
+
+    }
+    return 1;
+}
+void incrementarUsuario(usuario *& usuarios, unsigned int &tam){
+    if(usuario==nullptr){
+            if(tam<=0){
+                usuarios = new usuario[++tam];
+            }
+            return;
+    }
+
+    usuario* pasajero = new usuario[++tam];
+
+    for(unsigned int i = 0; i < tam-1; i++){
+            temporal[i] = usuarios[i];
+    }
+    delete[] usuarios;
+    usuarios = pasajero;
+}
+
+int leerArchivosAsistencia(ifstream & archivo,Asistencia *& Asistencias,unsigned int &tamA)
+{
+
+}
+
