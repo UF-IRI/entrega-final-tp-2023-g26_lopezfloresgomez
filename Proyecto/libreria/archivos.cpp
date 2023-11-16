@@ -97,7 +97,8 @@ struct clase {
 
 };
 */
-int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC){
+int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC)
+{
     char delimiter = ',';
     string line;
 
@@ -111,21 +112,22 @@ int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC){
             iss.clear();
             iss<<line;
 
-            incrementarClases(clase, tamC);
+            incrementarClases(clases, tamC);
 
             getline(iss, line, delimiter);
-            clase[tamC-1].Turnos->idclas= stoi(line);
+            clases[tamC-1].Turnos->idclas= stoi(line);
             getline(iss, line, delimiter);
-            clase[tamC-1].nombreclas=line;
+            clases[tamC-1].nombreclas=line;
             getline(iss, line);
-            clase[tamC-1].Turnos->horario=stof(line);
+            clases[tamC-1].Turnos->horario=stof(line);
         }
 
     }
     return 1;
 }
 
-void incrementarClases(clase* &clases, unsigned int &tam){
+void incrementarClases(clase* &clases, unsigned int &tam)
+{
     if(clases==nullptr){
         if(tam<=0){
             clases = new clase[++tam];
@@ -142,13 +144,15 @@ void incrementarClases(clase* &clases, unsigned int &tam){
     clases = temporal;
 }
 
-int leerArchivoUsuario(ifstream &archivo, usuario* &usuarios, unsigned int &tamU)
+
+int leerArchivoUsuario(ifstream &archivo, usuario* & usuarios, unsigned int &tamU)
 {
     char delimiter= ',';
     string line;
     stringstream iss;
 
-    if(archivo.is_open)
+    if(archivo.is_open())
+
         {
 
             getline(archivo, line);
@@ -158,28 +162,29 @@ int leerArchivoUsuario(ifstream &archivo, usuario* &usuarios, unsigned int &tamU
                 iss.clear();
                 iss<<line;
 
-                incrementarUsuario(usuario, tamU);
+                incrementarUsuarios(usuarios, tamU);
 
                 getline(iss, line, delimiter);
-                usuario[tamU-1].idCliente= stoi(line);
+                usuarios[tamU-1].idCliente= stoi(line);
                 getline(iss, line, delimiter);
-                usuario[tamU-1].nombre =line;
+                usuarios[tamU-1].nombre =line;
                 getline(iss, line,delimiter);
-                usuario[tamU-1].apellido=line;
+                usuarios[tamU-1].apellido=line;
                 getline(iss,line,delimiter);
-                usuario[tamU-1].email=line;
+                usuarios[tamU-1].email=line;
                 getline(iss,line,delimiter);
-                usuario[tamU-1].fechaNac=line;
+                usuarios[tamU-1].fechaNac=line;
                 getline(iss,line);
-                usuario->[tamU-1].estado=stoi(line;)
+                usuarios[tamU-1].estado=stoi(line);
 
             }
 
     }
     return 1;
 }
-void incrementarUsuario(usuario *& usuarios, unsigned int &tam){
-    if(usuario==nullptr){
+void incrementarUsuarios(usuario *& usuarios, unsigned int &tam)
+{
+    if(usuarios==nullptr){
             if(tam<=0){
                 usuarios = new usuario[++tam];
             }
@@ -189,14 +194,44 @@ void incrementarUsuario(usuario *& usuarios, unsigned int &tam){
     usuario* pasajero = new usuario[++tam];
 
     for(unsigned int i = 0; i < tam-1; i++){
-            temporal[i] = usuarios[i];
+            pasajero[i] = usuarios[i];
     }
     delete[] usuarios;
     usuarios = pasajero;
 }
 
-int leerArchivosAsistencia(ifstream & archivo,Asistencia *& Asistencias,unsigned int &tamA)
+ bool leerArchivosAsistencia(ifstream & archivo,Asistencia *& Asistencias,unsigned int &tamA)
 {
+            if (!archivo.is_open())
+                {
+                cout << "Error al abrir el archivo." << endl;
+                }
+
+                archivo.clear();//limpia los estados  del stream
+                archivo.seekg(0);//posicionar el puntero de lectura en la posicion cero
+
+                Asistencia *aux = Asistencias;
+
+                while (!archivo.eof()) {
+                archivo.read((char *)&aux->idCliente, sizeof(uint)); //aqui se lee desde el archivo binario y se llena la estructura
+                archivo.read((char *)&aux->cantInscriptos, sizeof(uint));// o le cambio  a cantdidad de inscriptos o no entiendo
+
+                Inscripcion *Inscripciones = new Inscripcion[aux->cantInscriptos];// cursos inscriptos es del tipo inscripcion, pero si quiero llenar asistencia tengo que lleanr ese,
+                Inscripcion *auxInscripcion = Inscripciones;// al hacer memoria dinamica tiene que ser un entero
+                for (uint i = 0; i < aux->cantInscriptos; i++)
+                {
+                archivo.read((char *)auxInscriptions, sizeof(Inscripcion));
+                auxInscriptions++;
+                }
+                aux->CursosInscriptos = registered;
+
+                aux++;
+                }
+
+                return true;
+
+
+
 
 }
 

@@ -29,28 +29,32 @@ bool verificarPago(usuario usuario)// N cantidad de struc alumnos vigentes,bool
 
 bool correspondencia (clase clase, int m,claseG *claseGe)
 {
-    claseGe *aux = claseGe+m-1;
+    claseG *aux = claseGe+m-1;
 
     while( claseGe != aux)//
     {
-        if(clase->idclas==claseGe.idclas && clase->turno.horario == claseGe.turno.horario)// comparativa de los archivos con el generico
-            return 1;
-        claseGe++
-        else
-            return -1;
+        if(clase.Turnos->idclas==claseGe->Turnos->idclas)// comparativa de los archivos con el generico
+        { return true;
+        }
+        claseGe++;
     }
+
+            return -1;
+
 }
 bool cupomax(clase clase,int m, claseG *array)
 {
-    claseG *aux = claseG+m-1;
+    claseG *aux = array + m-1;
     while(array !=aux)// recorreriamos el generico, ya que lo hacemos como funcion individual
     {
-        if(clase->turnos.cantinscriptos<array->turnos.cupomax)
-            return 1;
-        array++
-            else
-            return -1;
+        if(clase.Turnos->cantInscriptos<array->Turnos->cupoMax)
+        {   return true;
+        }
+        array++;
     }
+
+            return false;
+
 }
 
 bool menores(usuario usuario)// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
@@ -58,17 +62,11 @@ bool menores(usuario usuario)// analisis de la fecha de nacimiento con el anio a
 
 }
 
-bool dia()// preguntar sobre la funcion que analiza la reserva, ya que esta tendra un horario limitado de 19 a 22 hs. no hacer
+
+bool reserva(usuario * usuarios,clase* clases)
 {
 
-}
-bool reserva(usuario usuario[],clases clases[],int n,int m)
-{
-    for(int i=0; i<n; i++){
-        for(int h=0; i<m;h++){
 
-        }
-    }
 }
 
 
@@ -106,40 +104,9 @@ struct usuario
 */
 
 
-using namespace std;
 
 
 
 
-bool verificarPago(usuario usuario)// N cantidad de struc alumnos vigentes,bool
-{
-    if ( usuario.estado>=0)
-        return 1; // cuota al dia
-    else
-        return 0; // usuario no realizo el pago mensual
-}
 
-bool correspondencia (usuario , clases , int m)
-{
-    clases *aux = clases+N-1;
-
-    while( clases != aux)
-    {
-       if( verificaPago(usuario)==1)
-        {
-
-        }
-    }
-    if( verificaPago())
-
-
-}
-bool cupos(usuario usuario[],clases clases[],int n,int m)
-{
-    for(int i=0; i<n; i++){
-        for(int h=0; i<m;h++){
-
-        }
-    }
-}
 

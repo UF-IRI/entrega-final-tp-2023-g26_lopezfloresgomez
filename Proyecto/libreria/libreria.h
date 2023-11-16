@@ -24,7 +24,7 @@ struct clase {
     Turno* Turnos;
 
 };
-typedef clase clase;
+
 
 struct claseG {
     string nombreClaS;
@@ -63,7 +63,7 @@ struct Asistencia
 };
 typedef struct Asistencia Asistencia;
 typedef struct usuario usuario;
-typedef struct clases clases;
+typedef struct clase clases;
 
 
 // deesglosar todas las funciones, hacer el analisis de todas las restricciones, para encontrar los usuarios validos,
