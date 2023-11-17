@@ -1,36 +1,36 @@
 #include <catch2/catch.hpp>
-#include <libreria.h>
-#include <archivos.h>
+#include "archivos.h"
+#include "libreria.h"
 
-
-TEST_CASE("funciones(correctamente)", "[correspondencia]")
+TEST_CASE("funciones (correctamente)", "[verificarPago]")
 {
-    SECTION("correspondencia verdadera")
-    {
-        clase clases;
-        clases.Turnos=new Turno();//me aseguro que turnos se inicialize correctamente
-        clases.Turnos->idclas=10;
-        int m=3;
-        claseG *aux=new claseG[3];
-
-        bool resultado=correspondencia(clases,m,aux);
-        REQUIRE(resultado==true);
-        delete []aux;
-        delete clases.Turnos;
+    usuario aux;
+    int valor;
+    SECTION ("prueba del estado negativo"){
+        aux.estado=-6;
+        valor=verificarPago(aux);
+       CHECK (valor==-1);
     }
-    SECTION("correspondencia falsa")
-    {
-        clase clases;
-        clases.Turnos = new Turno(); // me aseguro que turnos se inicialize correctamente
-        clases.Turnos->idclas = 99;   // Cambié el idclas para que no coincida con el idclas en aux
-        int m = 3;
-        claseG *aux = new claseG[3];
+  SECTION ("prueba del estado positivo"){
+       int valor;
+       aux.estado=1;
+       valor=verificarPago(aux);
+       CHECK (valor==1);
+  }
+ /* SECTION ("prueba del estado con letras"){
 
-        bool resultado = correspondencia(clases, m, aux);
-        REQUIRE(resultado == false);
+       int valor;
+       int condicion;
+       aux.estado=1;
+       condicion=contieneCaracterNoNumerico(aux.estado);
+       REQUIRE (condicion==0);
+       valor=verificarPago(aux);
 
-        delete[] aux;
-        delete clases.Turnos;
-    }
+  }*/
+  SECTION ("prueba del estado 0"){
+       int valor;
+       aux.estado=0;
+       valor=verificarPago(aux);
+       CHECK (valor==1);
+  }
 }
-

@@ -1,5 +1,6 @@
 #include "libreria.h"
 
+
 Libreria::Libreria()
 {
 }
@@ -16,26 +17,41 @@ struct claseG {
     Turno* Turnos;
 };
 */
-bool verificarPago(usuario usuario)// N cantidad de struc alumnos vigentes,bool
+/*int contieneCaracterNoNumerico(int numero) {
+         // Verificar si el entero contiene caracteres no numéricos
+    while (numero != 0) {
+        int digito = numero % 10;
+        if (digito < 0 || digito > 9) {
+            // Si encuentra un dígito no numérico, la validación falla
+            return 1;
+        }
+        numero /= 10;
+    }
+    return 0; // El entero solo contiene dígitos, la validación es exitosa
+  if (contieneCaracterNoNumerico(usuario.estado)==true) {
+        return 0; // Error: Caracteres no permitidos en el estado
+
+}*/
+bool verificarPago(usuario usuariop)
 {
-    if ( usuario.estado>=0)
+        if( usuariop.estado>=0)
         return 1; // cuota al dia
     else
         return -1; // usuario no realizo el pago mensual
 }
-
 bool correspondencia (clase clase, int m,claseG *claseGe)
 {
     claseG *aux = claseGe+m-1;
 
     while( claseGe != aux)//
     {
-        if(clase.Turnos->idclas==claseGe->Turnos->idclas){// comparativa de los archivos con el generico
-            return true;
+        if(clase.Turnos->idclas==claseGe->Turnos->idclas)// comparativa de los archivos con el generico
+        { return true;
         }
         claseGe++;
     }
-    return -1;
+
+            return -1;
 
 }
 bool cupomax(clase clase,int m, claseG *array)
@@ -52,48 +68,20 @@ bool cupomax(clase clase,int m, claseG *array)
             return false;
 
 }
-/*
-struct usuario
+
+/*bool menores(usuario usuario)// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
 {
-    string nombre;
-    string apellido;
-    string email;
-    string fechaNac;
-    int idCliente;
-    int estado;
-    string telefono;
-};
-*/
-bool menores(usuario usuario){// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
-    time_t tiempoActual = time(nullptr);
-    tm* fechaActual = localtime(&tiempoActual);
-
-    string line = usuario.fechaNac;
-    istringstream iss(line);
-    // Asumiendo que el formato de la fecha es "DD-MM-AAAA"
-    // Extraer el substring correspondiente al año
-    string anio = line.substr(6, 4);
-    int anioNacimiento = stoi(anio);
-
-    int edad = fechaActual->tm_year + 1900 - anioNacimiento;
-
-    // Verificar si tiene más de 18 años
-    if (edad >= 18) {
-        return 1;
-    } else {
-        return 0;
-    }
 
 }
 
-/*
+
 bool reserva(usuario * usuarios,clase* clases)
 {
 
 
-}
+}*/
 
-*/
+
 
 
 
