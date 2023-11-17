@@ -54,21 +54,22 @@ bool correspondencia (clase clase, int m,claseG *claseGe)
             return -1;
 
 }
-bool cupomax(clase clase,int m, claseG *array)
+bool cupomax(clase clases,int m, claseG *array)
 {
     claseG *aux = array + m-1;
+            float i=8.0;
     while(array !=aux)// recorreriamos el generico, ya que lo hacemos como funcion individual
     {
-        if(clase.Turnos->cantInscriptos<array->Turnos->cupoMax)
-        {   return true;
+        if ((clases.Turnos->horario==i) && (array->Turnos->horario==1) && (clases.Turnos->cantInscriptos<array->Turnos->cupoMax))
+        {
+     return true;
         }
         array++;
+        i++;
     }
-
-            return false;
+         return false;
 
 }
-
 /*bool menores(usuario usuario)// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
 {
 
