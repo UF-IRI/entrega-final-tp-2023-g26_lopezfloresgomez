@@ -17,14 +17,28 @@ struct claseG {
     Turno* Turnos;
 };
 */
-bool verificarPago(usuario usuario)// N cantidad de struc alumnos vigentes,bool
+/*int contieneCaracterNoNumerico(int numero) {
+         // Verificar si el entero contiene caracteres no numéricos
+    while (numero != 0) {
+        int digito = numero % 10;
+        if (digito < 0 || digito > 9) {
+            // Si encuentra un dígito no numérico, la validación falla
+            return 1;
+        }
+        numero /= 10;
+    }
+    return 0; // El entero solo contiene dígitos, la validación es exitosa
+  if (contieneCaracterNoNumerico(usuario.estado)==true) {
+        return 0; // Error: Caracteres no permitidos en el estado
+
+}*/
+bool verificarPago(usuario usuariop)
 {
-    if ( usuario.estado>=0)
+        if( usuariop.estado>=0)
         return 1; // cuota al dia
     else
         return -1; // usuario no realizo el pago mensual
 }
-
 bool correspondencia (clase clase, int m,claseG *claseGe)
 {
     claseG *aux = claseGe+m-1;
@@ -55,7 +69,7 @@ bool cupomax(clase clase,int m, claseG *array)
 
 }
 
-bool menores(usuario usuario)// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
+/*bool menores(usuario usuario)// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
 {
 
 }
@@ -65,7 +79,7 @@ bool reserva(usuario * usuarios,clase* clases)
 {
 
 
-}
+}*/
 
 
 
