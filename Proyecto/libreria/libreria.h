@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <ctime>
 
 using namespace std;
 
@@ -17,15 +18,12 @@ typedef struct {
     unsigned int* alumnos;
     unsigned int idclas;
 } Turno;
-
 struct clase {
     string nombreclas;
     unsigned int cantTurnos;
     Turno* Turnos;
 
 };
-
-
 struct claseG {
     string nombreClaS;
     Turno* Turnos;
@@ -47,7 +45,6 @@ struct usuario
     int idCliente;
     int estado;
     string telefono;
-
 };
 struct Inscripcion
 {
@@ -81,7 +78,7 @@ bool reserva(usuario * usuarios,clase* clases);
 bool verificarPago(usuario usuario);
 bool cupomax(clase clase,int m, claseG *array);
 bool correspondencia (clase clase, int m,claseG *claseGe);
-
+bool menores(usuario usuario);
 
 
 #endif // LIBRERIA_H

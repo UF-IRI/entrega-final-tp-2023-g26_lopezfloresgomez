@@ -1,8 +1,6 @@
 #include "archivos.h"
 #include "libreria.h"
 
-
-
 int leerArchivoGen(ifstream &archivo, claseG* claseGen){
     int i=0,fila=0;
     char delimiter = ',';
@@ -120,7 +118,6 @@ void incrementarClases(clase* &clases, unsigned int &tam)
     clases = temporal;
 }
 
-
 int leerArchivoUsuario(ifstream &archivo, usuario* & usuarios, unsigned int &tamU)
 {
     char delimiter= ',';
@@ -128,11 +125,8 @@ int leerArchivoUsuario(ifstream &archivo, usuario* & usuarios, unsigned int &tam
     stringstream iss;
 
     if(archivo.is_open())
-
         {
-
             getline(archivo, line);
-
             while(!archivo.eof() && getline(archivo, line))
             {
                 iss.clear();
@@ -198,13 +192,6 @@ struct claseG {
 };
 */
 
-bool leerArchivosAsistencia(ifstream & archivo,Asistencia *& Asistencias,unsigned int &tamA){
-    if(!archivo.is_open()){
-            return 1;
-    }
-
-
-}
 
 /*
 bool leerArchivosAsistencia(ifstream & archivo,Asistencia *& Asistencias,unsigned int &tamA)

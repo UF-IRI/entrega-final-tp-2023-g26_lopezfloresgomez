@@ -1,6 +1,5 @@
 #include "libreria.h"
 
-
 Libreria::Libreria()
 {
 }
@@ -31,13 +30,12 @@ bool correspondencia (clase clase, int m,claseG *claseGe)
 
     while( claseGe != aux)//
     {
-        if(clase.Turnos->idclas==claseGe->Turnos->idclas)// comparativa de los archivos con el generico
-        { return true;
+        if(clase.Turnos->idclas==claseGe->Turnos->idclas){// comparativa de los archivos con el generico
+            return true;
         }
         claseGe++;
     }
-
-            return -1;
+    return -1;
 
 }
 bool cupomax(clase clase,int m, claseG *array)
@@ -54,20 +52,48 @@ bool cupomax(clase clase,int m, claseG *array)
             return false;
 
 }
-
-bool menores(usuario usuario)// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
+/*
+struct usuario
 {
+    string nombre;
+    string apellido;
+    string email;
+    string fechaNac;
+    int idCliente;
+    int estado;
+    string telefono;
+};
+*/
+bool menores(usuario usuario){// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
+    time_t tiempoActual = time(nullptr);
+    tm* fechaActual = localtime(&tiempoActual);
+
+    string line = usuario.fechaNac;
+    istringstream iss(line);
+    // Asumiendo que el formato de la fecha es "DD-MM-AAAA"
+    // Extraer el substring correspondiente al año
+    string anio = line.substr(6, 4);
+    int anioNacimiento = stoi(anio);
+
+    int edad = fechaActual->tm_year + 1900 - anioNacimiento;
+
+    // Verificar si tiene más de 18 años
+    if (edad >= 18) {
+        return 1;
+    } else {
+        return 0;
+    }
 
 }
 
-
+/*
 bool reserva(usuario * usuarios,clase* clases)
 {
 
 
 }
 
-
+*/
 
 
 
