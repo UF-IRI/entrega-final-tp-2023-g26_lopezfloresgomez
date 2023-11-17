@@ -54,23 +54,7 @@ int leerArchivoGen(ifstream &archivo, claseG* claseGen){
     return 0;
 }
 
-/*
- * // crear una estructura generica, con datos llenos por la informacion dada por la consigna (horarios, tipo de clase)
-typedef struct {
-    unsigned int cupoMax;//cupo maximo de personas por clase en este horario
-    float horario;// posible horario de clase
-    unsigned int cantInscriptos;// cupos ocupados, reagrupar original
-    unsigned int* alumnos;
-    unsigned int idclas;
-} Turno;
 
-struct clase {
-    string nombreclas;
-    unsigned int cantTurnos;
-    Turno* Turnos;
-
-};
-*/
 int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC)
 {
     char delimiter = ',';
@@ -171,56 +155,5 @@ void incrementarUsuarios(usuario *& usuarios, unsigned int &tam)
 }
 
 
-/*
-typedef struct {
-    unsigned int cupo_max;//cupo maximo de personas por clase en este horario
-    float horario;// posible horario de clase
-    unsigned int cantInscriptos;// cupos ocupados, reagrupar original
-    unsigned int* alumnos;
-    unsigned int idclas;
-} Turno;
-
-struct clase {
-    string nombreclas;
-    unsigned int cantTurnos;
-    Turno* Turnos;
-
-};
-struct claseG {
-    string nombreClaS;
-    Turno* Turnos;
-};
-*/
 
 
-/*
-bool leerArchivosAsistencia(ifstream & archivo,Asistencia *& Asistencias,unsigned int &tamA)
-{
-            if (!archivo.is_open())
-                {
-                cout << "Error al abrir el archivo." << endl;
-                }
-
-                archivo.clear();//limpia los estados  del stream
-                archivo.seekg(0);//posicionar el puntero de lectura en la posicion cero
-
-                Asistencia *aux = Asistencias;
-
-                while (!archivo.eof()) {
-                archivo.read((char *)&aux->idCliente, sizeof(uint)); //aqui se lee desde el archivo binario y se llena la estructura
-                archivo.read((char *)&aux->cantInscriptos, sizeof(uint));// o le cambio  a cantdidad de inscriptos o no entiendo
-
-                Inscripcion *Inscripciones = new Inscripcion[aux->cantInscriptos];// cursos inscriptos es del tipo inscripcion, pero si quiero llenar asistencia tengo que lleanr ese,
-                Inscripcion *auxInscripcion = Inscripciones;// al hacer memoria dinamica tiene que ser un entero
-                for (uint i = 0; i < aux->cantInscriptos; i++)
-                {
-                archivo.read((char *)auxInscriptions, sizeof(Inscripcion));
-                auxInscriptions++;
-                }
-                aux->CursosInscriptos = registered;
-
-                aux++;
-                }
-                return true;
-}
-*/

@@ -6,11 +6,7 @@
 
 using namespace std;
 
-
-
 int main(int argc, char *argv[]) {
-
-    string nombreArchivo = "iriHorarioGYM.csv";
 
     ifstream archivo(nombreArchivo);
 

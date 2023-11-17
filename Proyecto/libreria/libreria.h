@@ -22,7 +22,6 @@ struct clase {
     string nombreclas;
     unsigned int cantTurnos;
     Turno* Turnos;
-
 };
 struct claseG {
     string nombreClaS;
