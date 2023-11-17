@@ -1,15 +1,15 @@
-# G***NroGrupo***_***Apellido1******Apellido2***
-  "Breve descripción del trabajo"
+# G***26***_***Flores******Gomez******Lopez***
 
 ## Integrantes
-- Alumno 1
-- Alumno 2
+- Flores Tomas
+- Gomez Sol
+- Lopez Julian
 
 ## Objetivo del proyecto
-"Descripción del problema y el objetivo del desarrollo del proyecto"
+Agilizar el sistema de reservas del gym musculito
 
 ## Requisitos
-"Explicación de requisitos, librerias y explicaciones de uso"
+Librerias: iostream,fstream,sstream,string,ctime
 
 ## Documentacion
 [CPlusPlus](https://cplusplus.com/)
