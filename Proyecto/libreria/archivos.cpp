@@ -113,40 +113,26 @@ int leerArchivoClases(ifstream &archivo, clase *&clases, unsigned int &tamC)
 }
 
 
-bool leerArchivosAsistencia(ifstream &archivo,Asistencia *asistencias){
+int EscribirArchivoBinario(ofstream &archivo, Asistencia *&asistClientes, unsigned int &cantAsistencias){
 
-    if (!archivo.is_open()) {
-        cout << "Error al abrir el archivo." << endl;
-        return -1;
-    }
-
-    if (!archivo.is_open()){
-        delete [] asistencias;
-        return -1;
-    }
-    archivo.clear();
-    archivo.seekg(0);
-
-    Asistencia *aux = asistencias;
-
-    while (!archivo.eof()) {
-        archivo.read((char *)&aux->idCliente, sizeof(u_int));
-        archivo.read((char *)&aux->cantInscriptos, sizeof(u_int));
-
-        Inscripcion *registered = new Inscripcion[aux->cantInscriptos];
-        Inscripcion *auxInscriptions = registered;
-        for (u_int i = 0; i < aux->cantInscriptos; i++) {
-            archivobinlee.read((char *)auxInscriptions, sizeof(Inscripcion));
-            auxInscriptions++;
+    if (archivo.is_open()) {
+        for (unsigned int i=0; i < cantAsistencias; i++) {
+            archivo.write((char*)&asistClientes[i].idCliente, sizeof(unsigned int));
+            archivo.write((char*)&asistClientes[i].cantInscriptos, sizeof(unsigned int));
+            for(int j = 0; j < asistClientes[i].cantInscriptos; j++) {
+                archivo.write((char*)&asistClientes[i].CursosInscriptos[j], sizeof(Inscripcion));
+            }
         }
-        aux->CursosInscriptos = registered;
 
-        aux++;
+        return 1;
+
     }
 
-
-    return 1;
+    return -1;
 }
+
+
+
 
 
 

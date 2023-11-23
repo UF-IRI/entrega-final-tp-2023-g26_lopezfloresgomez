@@ -45,6 +45,7 @@ typedef struct Inscripcion Inscripcion;
 struct Asistencia
 {
     int idCliente;
+    int cantInscriptos;
     Inscripcion* CursosInscriptos;
 };
 typedef struct Asistencia Asistencia;

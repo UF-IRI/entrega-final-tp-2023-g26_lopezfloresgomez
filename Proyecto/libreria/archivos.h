@@ -9,9 +9,7 @@ int leerArchivoUsuario(ifstream &archivo, usuario* & usuarios, unsigned int &tam
 void incrementarClases(clase* &clases, unsigned int &tam);
 void incrementarUsuarios(usuario *& usuarios, unsigned int &tam);
 
-
-bool leerArchivosAsistencia(ifstream & archivo,Asistencia *& Asistencias,unsigned int &tamA);
-
+int EscribirArchivoBinario(ofstream &archivo, Asistencia *&asistClientes, unsigned int &cantAsistencias);
 
 
 
