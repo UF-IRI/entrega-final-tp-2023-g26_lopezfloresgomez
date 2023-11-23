@@ -28,48 +28,21 @@ bool verificarPago(usuario usuariop)
     else
         return false; // usuario no realizo el pago mensual
 }
-bool correspondencia (clase clase, int m,claseG *claseGe)
-{
-    claseG *aux = claseGe+m-1;
 
-    while( claseGe != aux)//
-    {
-        if(clase.Turnos->idclas==claseGe->Turnos->idclas)// comparativa de los archivos con el generico
-        { return true;
-        }
-        claseGe++;
-    }
-
-    return false;
-}
-bool cupomax(clase clases,int m, claseG *array)
-{
-    claseG *aux = array + m-1;
-            float i=8.0;
-    while(array !=aux)// recorreriamos el generico, ya que lo hacemos como funcion individual
-    {
-        if ((clases.Turnos->horario==i) && (array->Turnos->horario==1) && (clases.Turnos->cantInscriptos<array->Turnos->cupoMax))
-        {
-     return true;
-        }
-        array++;
-        i++;
-    }
-    return false;
-
-}
 bool menores(usuario usuario){// analisis de la fecha de nacimiento con el anio actual, preguntar funciones ctime, menores de 16 anios no entran.
      time_t tiempoActual = time(nullptr);
      tm* fechaActual = localtime(&tiempoActual);
 
      string line = usuario.fechaNac;
-     istringstream iss(line);
+     //line = 26-06-2011 BBBBBB
+    istringstream iss(line);
      // Asumiendo que el formato de la fecha es "DD-MM-AAAA"
      // Extraer el substring correspondiente al año
      string anio = line.substr(6, 4);
      int anioNacimiento = stoi(anio);
 
-     int edad = fechaActual->tm_year + 1900 - anioNacimiento;
+     int edad = (fechaActual->tm_year) + 1900 - anioNacimiento;
+                // 123 + 1900 -2002
 
      // Verificar si tiene más de 18 años
      if (edad >= 18)
@@ -80,6 +53,5 @@ bool menores(usuario usuario){// analisis de la fecha de nacimiento con el anio 
 
 /*
  * Reserva la funcion es que recorra los usuarios y clases
- *
 bool reserva(usuario * usuarios,clase* clases){}
 */
