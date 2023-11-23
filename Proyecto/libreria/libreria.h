@@ -14,7 +14,7 @@ struct clase {
     string nombreClas;
     float horario;// posible horario de clase
     unsigned int idClas;
-    unsigned int cupos;
+    unsigned int cupo;
     unsigned int cupoMax;//cupo maximo de personas por clase en este horario
 };
 
@@ -62,11 +62,8 @@ public:
     Libreria();
 };
 
-int leerArchivoGen(ifstream archivo, claseG *aux);
 bool reserva(usuario * usuarios,clase* clases);
 bool verificarPago(usuario usuario);
-bool cupomax(clase clase,int m, claseG *array);
-bool correspondencia (clase clase, int m,claseG *claseGe);
 bool menores(usuario usuario);
 
 
