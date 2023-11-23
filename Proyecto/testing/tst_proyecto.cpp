@@ -3,7 +3,7 @@
 #include "libreria.h"
 
 TEST_CASE("Lectura Archivos", "[Archivos]"){
-    SECTION("Archivo Clientes"){
+    SECTION("Archivo Usuarios"){
 
         unsigned int tamC;
         usuario *usuarios;
@@ -35,5 +35,33 @@ TEST_CASE("Lectura Archivos", "[Archivos]"){
         archivo.close();
 
         delete []usuarios;
+    }
+
+    SECTION("Archivo Clases") {
+        unsigned int tamC;
+        clases *clas, claseTesting;
+        int errorArchivo;
+
+        claseTesting.idClas = 9;
+        claseTesting.nombreClas = "Yoga";
+        claseTesting.horario = 15;
+        claseTesting.cupoMax = 25;
+        claseTesting.cupo = 0;
+
+        ifstream archivo("iriClasesGYM.csv");
+        //int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC);
+        errorArchivo = leerArchivoClases(archivo, clas, tamC);
+
+        REQUIRE(errorArchivo == 1);
+        REQUIRE(tamC == 60);
+        REQUIRE(clas[8].idClas == claseTesting.idClas);
+        REQUIRE(clas[8].nombreClas == claseTesting.nombreClas);
+        REQUIRE(clas[8].horario == claseTesting.horario);
+        REQUIRE(clas[8].cupoMax == claseTesting.cupoMax);
+        REQUIRE(clas[8].cupo == claseTesting.cupo);
+
+        archivo.close();
+
+        delete []clas;
     }
 }
