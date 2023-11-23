@@ -10,22 +10,12 @@
 
 using namespace std;
 
-// crear una estructura generica, con datos llenos por la informacion dada por la consigna (horarios, tipo de clase)
-typedef struct {
-    unsigned int cupoMax;//cupo maximo de personas por clase en este horario
-    float horario;// posible horario de clase
-    unsigned int cantInscriptos;// cupos ocupados, reagrupar original
-    unsigned int* alumnos;
-    unsigned int idclas;
-} Turno;
 struct clase {
-    string nombreclas;
-    unsigned int cantTurnos;
-    Turno* Turnos;
-};
-struct claseG {
-    string nombreClaS;
-    Turno* Turnos;
+    string nombreClas;
+    float horario;// posible horario de clase
+    unsigned int idClas;
+    unsigned int cupos;
+    unsigned int cupoMax;//cupo maximo de personas por clase en este horario
 };
 
 // turnos,es la funcion que nos muestra los horarios disponibles junto con los cupos, la cantidad de inscriptos y la info de cada alumno en ese horario
@@ -41,11 +31,11 @@ struct usuario
     string apellido;
     string email;
     string fechaNac;
+    string telefono;
     int idCliente;
     int estado;
-    string telefono;
 };
-struct Inscripcion
+struct Inscripcion // bin
 {
     unsigned int idCurso;// creemos que es idclase
     time_t fechaInscripcion;// horario de incripcion de la persona, entre las 19 a 22, a mi criterio. con 24 horas de anticipacion, restriccion
