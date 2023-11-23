@@ -9,6 +9,7 @@ CONFIG += c++17
 
 SOURCES += \
     archivos.cpp \
+    gimnasio.cpp \
     libreria.cpp
 
 HEADERS += \
