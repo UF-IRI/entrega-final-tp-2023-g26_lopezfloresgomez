@@ -7,7 +7,7 @@
 #include <sstream>
 #include <string>
 #include <ctime>
-
+typedef unsigned int u_int;
 using namespace std;
 
 struct clase {
@@ -17,14 +17,6 @@ struct clase {
     unsigned int cupo;
     unsigned int cupoMax;//cupo maximo de personas por clase en este horario
 };
-
-// turnos,es la funcion que nos muestra los horarios disponibles junto con los cupos, la cantidad de inscriptos y la info de cada alumno en ese horario
-/* la estructura clase contiene el nombre de la clase, el id, y la cantidad de horarios disponibles (canTturnos), y a su vez contiene la subestructura
-turnos, que engloba la info de cada horario*/
-/* que hacer para el relleno de las estructuras, ya que no tenemos una estructura generica que nos permita realizar comparativas con la informacion
- y a su vez es necesario dar informacion a estructuras que deberan ser rellenadas con los datos de los archivos, por ejemplo nombreclas,idclase
-cupo_max*/
-
 struct usuario
 {
     string nombre;
@@ -62,10 +54,4 @@ class LIBRERIA_EXPORT Libreria
 public:
     Libreria();
 };
-
-bool reserva(usuario * usuarios,clase* clases);
-bool verificarPago(usuario usuario);
-bool menores(usuario usuario);
-
-
 #endif // LIBRERIA_H
