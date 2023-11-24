@@ -1,5 +1,4 @@
-#include <liberia.h>
-
+#include <libreria.h>
 
 
 Asistencia* resizeClientes(Asistencia *AsistenciaClientes, u_int CantAsistencias, u_int nuevoTam){
