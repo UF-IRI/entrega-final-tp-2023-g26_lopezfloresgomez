@@ -4,10 +4,10 @@
 
 
 int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC);
-int leerArchivoUsuario(ifstream &archivo, usuario* & usuarios, unsigned int &tamU);
+int leerArchivoUsuario(ifstream &archivo, usuario* &usuarios, unsigned int &tamU);
 void incrementarClases(clase* &clases, unsigned int &tam);
 void incrementarUsuarios(usuario *& usuarios, unsigned int &tam);
-
+int LeerArchivoBinario(ifstream &archivo, Asistencia *asistencias);
 int EscribirArchivoBinario(ofstream &archivo, Asistencia *&asistClientes, unsigned int &cantAsistencias);
 
 

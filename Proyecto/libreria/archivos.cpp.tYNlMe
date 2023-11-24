@@ -3,6 +3,7 @@
 int leerArchivoUsuario(ifstream &archivo, usuario *&usuarios, unsigned int &tamU)
 {
     if(!archivo.is_open()){
+        cout << "AAA";
         return 0;
     }
     char delimiter= ',';
@@ -17,7 +18,6 @@ int leerArchivoUsuario(ifstream &archivo, usuario *&usuarios, unsigned int &tamU
     while(getline(archivo, line)){ // Agarra la cantinad de clientes
         tamU++;
     }
-
     archivo.clear();
     archivo.seekg(0, ios::beg); // pone el puntero al principio
 
@@ -105,33 +105,6 @@ int leerArchivoClases(ifstream &archivo, clase *&clases, unsigned int &tamC)
             clases[i].cupoMax=30;
             clases[i].cupo=0;
         }
-    }
-    return 1;
-}
-
-int LeerArchivoBinario(ifstream &archivo, Asistencia *asistencias){
-    if (!archivo.is_open()) {
-        cout << "Error al abrir el archivo." << endl;
-        return 0;
-    }
-
-    archivo.clear();
-    archivo.seekg(0);
-
-    Asistencia *aux = asistencias;
-
-    while (!archivo.eof()) {
-        archivo.read((char *)&aux->idCliente, sizeof(u_int));
-        archivo.read((char *)&aux->cantInscriptos, sizeof(u_int));
-
-        Inscripcion *registered = new Inscripcion[aux->cantInscriptos];
-        Inscripcion *auxInscriptions = registered;
-        for (int i = 0; i < aux->cantInscriptos; i++) {
-            archivo.read((char *)auxInscriptions, sizeof(Inscripcion));
-            auxInscriptions++;
-        }
-        aux->CursosInscriptos = registered;
-        aux++;
     }
     return 1;
 }

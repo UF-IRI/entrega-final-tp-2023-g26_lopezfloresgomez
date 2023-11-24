@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
 #include "archivos.h"
+#include "archivos.cpp"
 #include "libreria.h"
 
 TEST_CASE("Lectura Archivos", "[Archivos]"){
@@ -39,7 +40,7 @@ TEST_CASE("Lectura Archivos", "[Archivos]"){
 
     SECTION("Archivo Clases") {
         unsigned int tamC;
-        clases *clas, claseTesting;
+        clases *clases, claseTesting;
         int errorArchivo;
 
         claseTesting.idClas = 9;
@@ -50,18 +51,18 @@ TEST_CASE("Lectura Archivos", "[Archivos]"){
 
         ifstream archivo("iriClasesGYM.csv");
         //int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC);
-        errorArchivo = leerArchivoClases(archivo, clas, tamC);
+        errorArchivo = leerArchivoClases(archivo, clases, tamC);
 
         REQUIRE(errorArchivo == 1);
         REQUIRE(tamC == 60);
-        REQUIRE(clas[8].idClas == claseTesting.idClas);
-        REQUIRE(clas[8].nombreClas == claseTesting.nombreClas);
-        REQUIRE(clas[8].horario == claseTesting.horario);
-        REQUIRE(clas[8].cupoMax == claseTesting.cupoMax);
-        REQUIRE(clas[8].cupo == claseTesting.cupo);
+        REQUIRE(clases[8].idClas == claseTesting.idClas);
+        REQUIRE(clases[8].nombreClas == claseTesting.nombreClas);
+        REQUIRE(clases[8].horario == claseTesting.horario);
+        REQUIRE(clases[8].cupoMax == claseTesting.cupoMax);
+        REQUIRE(clases[8].cupo == claseTesting.cupo);
 
         archivo.close();
 
-        delete []clas;
+        delete []clases;
     }
 }

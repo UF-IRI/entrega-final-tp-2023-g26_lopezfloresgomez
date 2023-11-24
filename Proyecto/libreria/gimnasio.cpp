@@ -1,6 +1,6 @@
 #include <libreria.h>
 
-
+/*
 Asistencia* resizeClientes(Asistencia *AsistenciaClientes, u_int CantAsistencias, u_int nuevoTam){
 
     Asistencia* aux = new Asistencia[nuevoTam];
@@ -31,7 +31,7 @@ Inscripcion* resizeInscripcion(Asistencia* AsistenciaClientes, u_int cantinscrip
     return nullptr;
 }
 
-int BuscarIdCliente(ClientesGYM *Clientes, u_int idCliente, u_int CantClientes, ClientesGYM &cliente)
+int BuscarIdCliente(usuario *Clientes, u_int idCliente, u_int CantClientes, ClientesGYM &cliente)
 {
     ClientesGYM *aux = Clientes, *ultimo = (Clientes) + CantClientes - 1;
     while(true) {
@@ -61,3 +61,18 @@ int BuscarIdClase(ClasesGym *Clases, u_int idClase, u_int cantClases, ClasesGym 
     return 0 // error id clase
 }
 
+int BuscarIdClaseEnInscripciones(Asistencia AsistenciaUser, unsigned int idClas){
+
+    int i=0;
+
+    while(true) {
+        if (AsistenciaUser.CursosInscriptos->idCurso == idClas ){
+            return -1;
+        }
+        if ( AsistenciaUser.cantInscriptos == i)
+            break;
+        i++;
+    }
+    return 1;
+}
+*/
