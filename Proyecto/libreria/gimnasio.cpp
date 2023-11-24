@@ -1,4 +1,5 @@
-#include <libreria.h>
+#include <liberia.h>
+
 
 
 Asistencia* resizeClientes(Asistencia *AsistenciaClientes, u_int CantAsistencias, u_int nuevoTam){
@@ -75,9 +76,9 @@ int BuscarIdClaseEnInscripciones(Asistencia AsistenciaUser, unsigned int idClas)
     }
     return 1;
 }
-eAsistencia BuscarAsisCliente(u_int idClase, u_int idCliente,  Asistencia *&AsistenciaClientes, Asistencia &AsistenciaCliente, u_int &CantAsistencias)
+int BuscarAsisCliente(u_int idClase, u_int idCliente,  Asistencia *&AsistenciaClientes, Asistencia &AsistenciaCliente, u_int &CantAsistencias)
 {
-    int exito1,;
+    int exito1;
     if(CantAsistencias == 0){
         AsistenciaClientes = resizeClientes(AsistenciaClientes, CantAsistencias, CantAsistencias+1);
 
