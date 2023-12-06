@@ -2,13 +2,16 @@
 #define ARCHIVOS_H
 #include "libreria.h"
 
+//Declaro errores
+enum files {errOpen= -2, errWriting = -1, success = 1};
+typedef enum files;
 
-int leerArchivoClases(ifstream &archivo, clase* &clases, unsigned int &tamC);
-int leerArchivoUsuario(ifstream &archivo, usuario* &usuarios, unsigned int &tamU);
-void incrementarClases(clase* &clases, unsigned int &tam);
-void incrementarUsuarios(usuario *& usuarios, unsigned int &tam);
-int LeerArchivoBinario(ifstream &archivo, Asistencia *asistencias);
-int EscribirArchivoBinario(ofstream &archivo, Asistencia *&asistClientes, unsigned int &cantAsistencias);
+//Declaro Funciones
+files readFileClients(ifstream &fileUsers, usersGYM *&users, u_int &cantU);
+files readFileClasses(ifstream &fileClasses, classGYM *&classes, u_int &cantC);
+files readFileBinary(ifstream &fileBinRead, Asistencia *assist);
+files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA);
+
 
 
 

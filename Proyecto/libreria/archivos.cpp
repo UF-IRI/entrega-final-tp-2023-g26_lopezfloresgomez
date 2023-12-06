@@ -1,157 +1,58 @@
 #include "archivos.h"
+files readFileClients(ifstream &fileUsers, usersGYM *&users, u_int &cantU){
 
-int leerArchivoUsuario(ifstream &archivo, usuario *&usuarios, unsigned int &tamU)
-{
-    if(!archivo.is_open()){
-        return 0;
+    int i = 0;
+
+    if (!fileUsers.is_open()) {
+
+        return files :: errOpen;
     }
-    char delimiter= ',';
-    int i=0;
-    string line;
+
     string header;
-    string elemento;
-    stringstream iss;
+    getline(fileUsers, header);
 
-    getline(archivo, header);
+    string line;
+    char delimiter = ',';
 
-    while(getline(archivo, line)){ // Agarra la cantinad de clientes
-        tamU++;
-    }
+    while(getline(fileUsers, line))
+        cantU++;
 
-    archivo.clear();
-    archivo.seekg(0, ios::beg); // pone el puntero al principio
+    fileUsers.clear();
+    fileUsers.seekg(0, std::ios::beg);
 
-    usuarios = new usuario[tamU];
+    users = new usersGYM[cantU];
 
-    getline(archivo, header);
+    getline(fileUsers, header);
+    string auxidCliente, auxnombre, auxapellido, auxemail, auxtelefono, auxfechanacimiento, auxestado;
+    stringstream ss;
+    while(!fileUsers.eof() && getline(fileUsers, line)) {
+        ss.clear();
+        ss<<line;
+        getline(ss,auxidCliente,delimiter);
+        (users[i]).idCliente = stoi(auxidCliente);
 
-    while(!archivo.eof() && getline(archivo, line)) {
-        iss.clear();
-        iss << line;
+        getline(ss,auxnombre,delimiter);
+        (users[i]).nombre = auxnombre;
 
-        getline(iss,elemento,delimiter);
-        usuarios[i].idCliente = stoi(elemento);
-        getline(iss,usuarios[i].nombre,delimiter);
-        getline(iss,usuarios[i].apellido,delimiter);
-        getline(iss,usuarios[i].email,delimiter);
-        getline(iss,usuarios[i].telefono,delimiter);
-        getline(iss,usuarios[i].fechaNac,delimiter);
-        getline(iss,elemento,delimiter);
-        usuarios[i].estado = stoi(elemento);
+        getline(ss,auxapellido,delimiter);
+        (users[i]).apellido = auxapellido;
+
+        getline(ss,auxemail,delimiter);
+        (users[i]).email = auxemail;
+
+        getline(ss,auxtelefono,delimiter);
+        (users[i]).telefono = auxtelefono;
+
+        getline(ss,auxfechanacimiento,delimiter);
+        (users[i]).fechaNac = auxfechanacimiento;
+
+        getline(ss,auxestado,delimiter);
+        (users[i]).estado = stoi(auxestado);
+
         i++;
     }
-    return 1;
+    return files :: success;
 }
-
-int leerArchivoClases(ifstream &archivo, clase *&clases, unsigned int &tamC)
-{
-    if(!archivo.is_open())
-        return 0;
-
-    char delimiter= ',';
-    int i=0;
-    string line;
-    string header;
-    string elemento;
-    stringstream iss;
-
-    getline(archivo, header);
-
-    while(getline(archivo, line)){ // Agarra la cantinad de clientes
-        tamC++;
-    }
-
-    archivo.clear();
-    archivo.seekg(0, std::ios::beg); // pone el puntero al principio
-
-    clases = new clase[tamC];
-    getline(archivo, header);
-
-    while(!archivo.eof() && getline(archivo, line)) {
-        iss.clear();
-        iss<<line;
-        getline(iss,elemento,delimiter);
-        clases[i].idClas = stoi(elemento);
-        getline(iss,clases[i].nombreClas,delimiter);
-        getline(iss,elemento,delimiter);
-        clases[i].horario = stof(elemento);
-        i++;
-
-        if(clases[i].idClas>0 && clases[i].idClas<6){
-            clases[i].cupoMax=45;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>5 && clases[i].idClas<12){
-            clases[i].cupoMax=25;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas >11 && clases[i].idClas<18){
-            clases[i].cupoMax=15;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>17 && clases[i].idClas<24){
-            clases[i].cupoMax=40;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>23 && clases[i].idClas<30){
-            clases[i].cupoMax=50;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>29 && clases[i].idClas<34){
-            clases[i].cupoMax=30;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>33 && clases[i].idClas<61){
-            clases[i].cupoMax=30;
-            clases[i].cupo=0;
-        }
-    }
-    return 1;
-}
-
-int LeerArchivoBinario(ifstream &archivo, Asistencia *asistencias){
-    if (!archivo.is_open()) {
-        cout << "Error al abrir el archivo." << endl;
-        return 0;
-    }
-
-    archivo.clear();
-    archivo.seekg(0);
-
-    Asistencia *aux = asistencias;
-
-    while (!archivo.eof()) {
-        archivo.read((char *)&aux->idCliente, sizeof(u_int));
-        archivo.read((char *)&aux->cantInscriptos, sizeof(u_int));
-
-        Inscripcion *registered = new Inscripcion[aux->cantInscriptos];
-        Inscripcion *auxInscriptions = registered;
-        for (int i = 0; i < aux->cantInscriptos; i++) {
-            archivo.read((char *)auxInscriptions, sizeof(Inscripcion));
-            auxInscriptions++;
-        }
-        aux->CursosInscriptos = registered;
-        aux++;
-    }
-    return 1;
-}
-
-
-int EscribirArchivoBinario(ofstream &archivo, Asistencia *&asistClientes, unsigned int &cantAsistencias){
-
-    if (archivo.is_open()) {
-        for (unsigned int i=0; i < cantAsistencias; i++) {
-            archivo.write((char*)&asistClientes[i].idCliente, sizeof(unsigned int));
-            archivo.write((char*)&asistClientes[i].cantInscriptos, sizeof(unsigned int));
-            for(int j = 0; j < asistClientes[i].cantInscriptos; j++) {
-                archivo.write((char*)&asistClientes[i].CursosInscriptos[j], sizeof(Inscripcion));
-            }
-        }
-        return 1;
-    }
-    return 0;
-}
-
 
 
 
