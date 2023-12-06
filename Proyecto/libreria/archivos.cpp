@@ -1,138 +1,142 @@
 #include "archivos.h"
+files readFileClients(ifstream &fileUsers, usersGYM *&users, u_int &cantU){
 
-int leerArchivoUsuario(ifstream &archivo, usuario *&usuarios, unsigned int &tamU)
-{
-    if(!archivo.is_open())
-        return -1;
+    int i = 0;
 
-    char delimiter= ',';
-    int i=0;
-    string line;
-    string header;
-    string elemento;
-    stringstream iss;
-
-    getline(archivo, header);
-
-    while(getline(archivo, line)){ // Agarra la cantinad de clientes
-        tamU++;
+    if (!fileUsers.is_open()) {
+        return files :: errOpen;
     }
-    archivo.clear();
-    archivo.seekg(0, std::ios::beg); // pone el puntero al principio
 
-    usuarios = new usuario[tamU];
+    string header;
+    getline(fileUsers, header);
 
-    getline(archivo, header);
+    string line;
+    char delimiter = ',';
 
-    while(!archivo.eof() && getline(archivo, line)) {
-        iss.clear();
-        iss<<line;
-        elemento.clear();
-        getline(iss,elemento,delimiter);
-        usuarios[i].idCliente = stoi(elemento);
-        getline(iss,usuarios[i].nombre,delimiter);
-        getline(iss,usuarios[i].apellido,delimiter);
-        getline(iss,usuarios[i].email,delimiter);
-        getline(iss,usuarios[i].telefono,delimiter);
-        getline(iss,usuarios[i].fechaNac,delimiter);
-        elemento.clear();
-        getline(iss,elemento,delimiter);
-        usuarios[i].estado = stoi(elemento);
+    while(getline(fileUsers, line))
+        cantU++;
 
+    fileUsers.clear();
+    fileUsers.seekg(0, std::ios::beg);
 
+    users = new usersGYM[cantU];
+
+    getline(fileUsers, header);
+    string auxidCliente, auxnombre, auxapellido, auxemail, auxtelefono, auxfechanacimiento, auxestado;
+    stringstream ss;
+    while(!fileUsers.eof() && getline(fileUsers, line)) {
+        ss.clear();
+        ss<<line;
+        getline(ss,auxidCliente,delimiter);
+        (users[i]).idCliente = stoi(auxidCliente);
+
+        getline(ss,auxnombre,delimiter);
+        (users[i]).nombre = auxnombre;
+
+        getline(ss,auxapellido,delimiter);
+        (users[i]).apellido = auxapellido;
+
+        getline(ss,auxemail,delimiter);
+        (users[i]).email = auxemail;
+
+        getline(ss,auxtelefono,delimiter);
+        (users[i]).telefono = auxtelefono;
+
+        getline(ss,auxfechanacimiento,delimiter);
+        (users[i]).fechaNac = auxfechanacimiento;
+
+        getline(ss,auxestado,delimiter);
+        (users[i]).estado = stoi(auxestado);
 
         i++;
     }
-    return 1;
+    return files :: success;
 }
 
-int leerArchivoClases(ifstream &archivo, clase *&clases, unsigned int &tamC)
-{
-    if(!archivo.is_open())
-        return -1;
+files readFileClasses(ifstream &fileClasses, classGYM *&classes, u_int &cantC){
+    int i = 0;
 
-    char delimiter= ',';
-    int i=0;
-    string line;
+    if (!fileClasses.is_open()) {
+        return files :: errOpen;
+    }
+
     string header;
-    string elemento;
-    stringstream iss;
+    getline(fileClasses, header);
 
-    getline(archivo, header);
+    string line;
+    char delimiter = ',';
 
-    while(getline(archivo, line)){ // Agarra la cantinad de clientes
-        tamC++;
-    }
+    while(getline(fileClasses, line))
+        cantC++;
 
-    archivo.clear();
-    archivo.seekg(0, std::ios::beg); // pone el puntero al principio
+    fileClasses.clear();
+    fileClasses.seekg(0, std::ios::beg);
 
-    clases = new clase[tamC];
-    getline(archivo, header);
+    classes = new classGYM[cantC];
 
-    while(!archivo.eof() && getline(archivo, line)) {
-        iss.clear();
-        iss<<line;
-        getline(iss,elemento,delimiter);
-        clases[i].idClas = stoi(elemento);
-        getline(iss,clases[i].nombreClas,delimiter);
-        getline(iss,elemento,delimiter);
-        clases[i].horario = stof(elemento);
+    getline(fileClasses, header);
+    string auxidClase, auxnombre, auxhorario;
+    stringstream ss;
+    while(!fileClasses.eof() && getline(fileClasses, line)) {
+        ss.clear();
+        ss<<line;
+        getline(ss,auxidClase,delimiter);
+        (classes[i]).idClase = stoi(auxidClase);
+
+        getline(ss,auxnombre,delimiter);
+        (classes[i]).nombreClase = auxnombre;
+
+        getline(ss,auxhorario,delimiter);
+        (classes[i]).horario = stof(auxhorario);
+
+        if(stoi(auxidClase)>0 && stoi(auxidClase)<6){
+            (classes[i]).cuposMax=45;
+            (classes[i]).cupos=0;
+        }
+        else if(stoi(auxidClase)>5 && stoi(auxidClase)<12){
+            (classes[i]).cuposMax=25;
+            (classes[i]).cupos=0;
+        }
+        else if(stoi(auxidClase)>11 && stoi(auxidClase)<18){
+            (classes[i]).cuposMax=15;
+            (classes[i]).cupos=0;
+        }
+        else if(stoi(auxidClase)>17 && stoi(auxidClase)<24){
+            (classes[i]).cuposMax=40;
+            (classes[i]).cupos=0;
+        }
+        else if(stoi(auxidClase)>23 && stoi(auxidClase)<30){
+            (classes[i]).cuposMax=50;
+            (classes[i]).cupos=0;
+        }
+        else if(stoi(auxidClase)>29 && stoi(auxidClase)<34){
+            (classes[i]).cuposMax=30;
+            (classes[i]).cupos=0;
+        }
+        else if(stoi(auxidClase)>33 && stoi(auxidClase)<61){
+            (classes[i]).cuposMax=30;
+            (classes[i]).cupos=0;
+        }
+
         i++;
-
-        if(clases[i].idClas>0 && clases[i].idClas<6){
-            clases[i].cupoMax=45;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>5 && clases[i].idClas<12){
-            clases[i].cupoMax=25;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas >11 && clases[i].idClas<18){
-            clases[i].cupoMax=15;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>17 && clases[i].idClas<24){
-            clases[i].cupoMax=40;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>23 && clases[i].idClas<30){
-            clases[i].cupoMax=50;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>29 && clases[i].idClas<34){
-            clases[i].cupoMax=30;
-            clases[i].cupo=0;
-        }
-        else if(clases[i].idClas>33 && clases[i].idClas<61){
-            clases[i].cupoMax=30;
-            clases[i].cupo=0;
-        }
     }
-    return 1;
+
+    return files :: success;
 }
 
-
-int EscribirArchivoBinario(ofstream &archivo, Asistencia *&asistClientes, unsigned int &cantAsistencias){
-
-    if (archivo.is_open()) {
-        for (unsigned int i=0; i < cantAsistencias; i++) {
-            archivo.write((char*)&asistClientes[i].idCliente, sizeof(unsigned int));
-            archivo.write((char*)&asistClientes[i].cantInscriptos, sizeof(unsigned int));
-            for(int j = 0; j < asistClientes[i].cantInscriptos; j++) {
-                archivo.write((char*)&asistClientes[i].CursosInscriptos[j], sizeof(Inscripcion));
+files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA){
+    if (fileBin.is_open()) {
+        for (u_int i=0; i < cantA; i++) {
+            fileBin.write((char*)&clientAssist[i].idCliente, sizeof(u_int));
+            fileBin.write((char*)&clientAssist[i].cantInscriptos, sizeof(u_int));
+            for(int j = 0; j < clientAssist[i].cantInscriptos; j++) {
+                fileBin.write((char*)&clientAssist[i].CursosInscriptos[j], sizeof(Inscripcion));
             }
         }
-
-        return 1;
-
+        return files :: success;
     }
-
-    return -1;
+    return files :: errOpen;
 }
-
-
-
 
 
 

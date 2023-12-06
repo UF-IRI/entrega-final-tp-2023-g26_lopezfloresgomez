@@ -1,23 +1,44 @@
 #ifndef LIBRERIA_H
 #define LIBRERIA_H
 
-#include "libreria_global.h"
-#include <iostream>
+#include <ctime>
+#include <string>
 #include <fstream>
 #include <sstream>
-#include <string>
-#include <ctime>
-typedef unsigned int u_int;
+#include <cstdlib>
+#include <iostream>
+
 using namespace std;
 
-struct clase {
-    string nombreClas;
-    float horario;// posible horario de clase
-    unsigned int idClas;
-    unsigned int cupo;
-    unsigned int cupoMax;//cupo maximo de personas por clase en este horario
+typedef string str;
+typedef unsigned int u_int;
+
+
+struct Inscripcion // bin
+{
+    unsigned int idCurso;// creemos que es idclase
+    time_t fechaInscripcion;// horario de incripcion de la persona, entre las 19 a 22, a mi criterio. con 24 horas de anticipacion, restriccion
 };
-struct usuario
+
+struct Asistencia
+{
+    int idCliente;
+    int cantInscriptos;
+    Inscripcion* CursosInscriptos;
+};
+
+typedef struct Inscripcion Inscripcion;
+typedef struct Asistencia Asistencia;
+
+typedef struct {
+    string nombreClase;
+    float horario; // posible horario de clase
+    u_int idClase;
+    u_int cupos;
+    u_int cuposMax; //cupo maximo de personas por clase en este horario
+} classGYM;
+
+typedef struct
 {
     string nombre;
     string apellido;
@@ -26,32 +47,8 @@ struct usuario
     string telefono;
     int idCliente;
     int estado;
-};
-struct Inscripcion // bin
-{
-    unsigned int idCurso;// creemos que es idclase
-    time_t fechaInscripcion;// horario de incripcion de la persona, entre las 19 a 22, a mi criterio. con 24 horas de anticipacion, restriccion
-};
-typedef struct Inscripcion Inscripcion;
-
-struct Asistencia
-{
-    int idCliente;
-    int cantInscriptos;
-    Inscripcion* CursosInscriptos;
-};
-typedef struct Asistencia Asistencia;
-typedef struct usuario usuario;
-typedef struct clase clases;
+} usersGYM;
 
 
-// deesglosar todas las funciones, hacer el analisis de todas las restricciones, para encontrar los usuarios validos,
-/* analizar errores de sintaxis, hacer la de menores, encargarnos de todos los archivos ( simplemente bajarlos y guardarlos en nuestra estructura
-*/
 
-class LIBRERIA_EXPORT Libreria
-{
-public:
-    Libreria();
-};
 #endif // LIBRERIA_H
