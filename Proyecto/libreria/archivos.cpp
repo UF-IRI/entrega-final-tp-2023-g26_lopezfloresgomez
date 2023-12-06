@@ -54,11 +54,10 @@ files readFileClients(ifstream &fileUsers, usersGYM *&users, u_int &cantU){
 }
 
 files readFileClasses(ifstream &fileClasses, classGYM *&classes, u_int &cantC){
-
     int i = 0;
 
     if (!fileClasses.is_open()) {
-        return files :: errOpen;;
+        return files :: errOpen;
     }
 
     string header;
@@ -125,6 +124,19 @@ files readFileClasses(ifstream &fileClasses, classGYM *&classes, u_int &cantC){
     return files :: success;
 }
 
+files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA){
+    if (fileBin.is_open()) {
+        for (u_int i=0; i < cantA; i++) {
+            fileBin.write((char*)&clientAssist[i].idCliente, sizeof(u_int));
+            fileBin.write((char*)&clientAssist[i].cantInscriptos, sizeof(u_int));
+            for(int j = 0; j < clientAssist[i].cantInscriptos; j++) {
+                fileBin.write((char*)&clientAssist[i].CursosInscriptos[j], sizeof(Inscripcion));
+            }
+        }
+        return files :: success;
+    }
+    return files :: errOpen;
+}
 
 
 
