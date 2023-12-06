@@ -31,11 +31,11 @@ typedef struct Inscripcion Inscripcion;
 typedef struct Asistencia Asistencia;
 
 typedef struct {
-    string nombreClas;
+    string nombreClase;
     float horario; // posible horario de clase
-    u_int idClas;
-    u_int cupoAct;
-    u_int cupoMax; //cupo maximo de personas por clase en este horario
+    u_int idClase;
+    u_int cupos;
+    u_int cuposMax; //cupo maximo de personas por clase en este horario
 } classGYM;
 
 typedef struct
