@@ -41,14 +41,13 @@ Inscripcion* resizeInscripcion(Asistencia* AsisClientes, u_int cantins, u_int nT
     return nullptr;
 }
 
-
 filesCLI BuscarIdCliente(usersGYM *Clientes, u_int idCliente, u_int CantClientes, usersGYM &cliente)
 {
     usersGYM *aux = Clientes, *ultimo = (Clientes) + CantClientes - 1;
     while(true) {
         if (aux->idCliente == idCliente ){
             cliente = *aux;
-            return clientes :: ExitoCliente;
+            return filesCLI :: ExitoCliente;
         }
         if (aux == ultimo)
             break;
@@ -57,13 +56,13 @@ filesCLI BuscarIdCliente(usersGYM *Clientes, u_int idCliente, u_int CantClientes
     return filesCLI :: ErrIdClienteinx;
 }
 
-filesCLA BuscarIdClase(usersGYM *Clases, u_int idClase, u_int cantClases, usersGYM &clase)
+filesCLA BuscarIdClase(classGYM *Clases, u_int idClase, u_int cantClases, classGYM &clase)
 {
     classGYM *aux = Clases, *ultimo = (Clases) + cantClases - 1;
     while(true) {
         if (aux->idClase == idClase ){
             clase = *aux;
-            return Clases :: ExitoClase;
+            return filesCLA :: ExitoClase;
         }
         if (aux == ultimo)
             break;
@@ -72,17 +71,3 @@ filesCLA BuscarIdClase(usersGYM *Clases, u_int idClase, u_int cantClases, usersG
     return filesCLA :: ErrIdClaseinx;
 }
 
-filesCLA BuscarIdClase(usersGYM *Clases, u_int idClase, u_int cantClases)
-{
-    ClasesGym *aux = Clases, *ultimo = (Clases) + cantClases - 1;
-    while(true) {
-        if (aux->idClase == idClase ){
-            aux->cuposActuales++;
-            return eClase :: ExitoClase;
-        }
-        if (aux == ultimo)
-            break;
-        aux++;
-    }
-    return filesCLA :: ErrIdClaseinx;
-}
