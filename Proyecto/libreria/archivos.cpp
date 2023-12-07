@@ -1,4 +1,5 @@
 #include "archivos.h"
+
 files readFileClients(ifstream &fileUsers, usersGYM *&users, u_int &cantU){
 
     int i = 0;

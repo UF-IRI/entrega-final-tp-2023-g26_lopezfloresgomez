@@ -13,6 +13,13 @@ using namespace std;
 typedef string str;
 typedef unsigned int u_int;
 
+enum Asistencias  { ErrEspacio = -1, ExitoAsistencias = 1, ExitoCrearAsistencias = 2 };
+typedef enum Asistencias filesA;
+
+enum Clientes  { ErrEstado = -7, ErrIdClienteinx = -6, ErrNombre = -5, ErrApellido = -4, ErrTelefono = -3, ErrMuyViejo = -2, ErrMuyJoven = -1, ExitoCliente = 1 };
+enum Clases  { ErrEspacioCrearAsistencia = -5, ErrClaseRepetida = -4, ErrSuperposicionDeHorarios = -3, ErrCupos = -2, ErrIdClaseinx = -1, ExitoClase = 1 };
+typedef enum Clientes  filesCLI;
+typedef enum Clases  filesCLA;
 
 struct Inscripcion // bin
 {
