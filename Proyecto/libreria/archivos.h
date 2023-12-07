@@ -9,7 +9,7 @@ typedef enum files files;
 //Declaro Funciones
 files readFileUsers(ifstream &fileUsers, usersGYM *&users, u_int &cantU);
 files readFileClasses(ifstream &fileClasses, classGYM *&classes, u_int &cantC);
-files readFileBinary(ifstream &fileBinRead, Asistencia *assist);
+//files readFileBinary(ifstream &fileBinRead, Asistencia *assist);
 files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA);
 
 

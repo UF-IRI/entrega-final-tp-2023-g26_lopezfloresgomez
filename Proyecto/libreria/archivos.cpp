@@ -1,6 +1,6 @@
 #include "archivos.h"
 
-files readFileClients(ifstream &fileUsers, usersGYM *&users, u_int &cantU){
+files readFileUsers(ifstream &fileUsers, usersGYM *&users, u_int &cantU){
 
     int i = 0;
 
@@ -140,5 +140,44 @@ files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA
 }
 
 
+/*
+files readFileBinary(ifstream &fileBinRead, Asistencia *assist){
+
+    if (!fileBinRead.is_open()) {
+        std::cerr << "Error al abrir el archivo." << std::endl;
+        return files :: errOpen;
+    }
 
 
+    if (!fileBinRead.is_open()){
+        delete [] assist;
+        return files :: errOpen;
+    }
+
+
+    fileBinRead.clear();
+    fileBinRead.seekg(0);
+
+    Asistencia *aux = assist;
+
+    while (!fileBinRead.eof()) {
+        fileBinRead.read((char *)&aux->idCliente, sizeof(u_int));
+        fileBinRead.read((char *)&aux->cantInscriptos, sizeof(u_int));
+
+        Inscripcion *registered = new Inscripcion[aux->cantInscriptos];
+        Inscripcion *auxInscriptions = registered;
+        for (u_int i = 0; i < aux->cantInscriptos; i++) {
+            fileBinRead.read((char *)auxInscriptions, sizeof(Inscripcion));
+            auxInscriptions++;
+        }
+        aux->CursosInscriptos = registered;
+
+        aux++;
+    }
+
+
+    return files :: success;
+
+}
+
+*/

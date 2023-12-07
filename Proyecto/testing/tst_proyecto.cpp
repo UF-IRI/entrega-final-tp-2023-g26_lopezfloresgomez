@@ -3,8 +3,6 @@
 #include "archivos.cpp"
 #include "libreria.h"
 
-
-
 TEST_CASE("Testing Archivos")
 {
     SECTION("Archivo clientes (.csv)") {
@@ -39,7 +37,7 @@ TEST_CASE("Testing Archivos")
 
         delete []Clientes;
     }
-
+/*
     SECTION("Archivo Aistencia (.bin)") {
         int cantAsist;
         Asistencia *asistencias;
@@ -62,7 +60,7 @@ TEST_CASE("Testing Archivos")
         delete []asistencias;
 
         infileAsistencia.close();
-    }
+    }*/
 
 
 

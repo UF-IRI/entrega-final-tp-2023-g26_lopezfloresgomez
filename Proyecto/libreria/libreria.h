@@ -1,6 +1,8 @@
 #ifndef LIBRERIA_H
 #define LIBRERIA_H
 
+#include "libreria_global.h"
+
 #include <ctime>
 #include <string>
 #include <fstream>
@@ -57,5 +59,11 @@ typedef struct
 } usersGYM;
 
 
+
+class LIBRERIA_EXPORT Libreria
+{
+public:
+    Libreria();
+};
 
 #endif // LIBRERIA_H

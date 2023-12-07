@@ -1,0 +1,15 @@
+Tipo,Spinning,Yoga,Pilates,Stretching,Zumba,Boxeo
+Sala,Bicis,Siri,Camillas,Gim 1,Gim 2,Box
+Cupo,0045,0025,0015,0040,50,0030
+Hora,,,,,,
+0008,X,,X,X,X,
+0009,,X,X,,,
+0010,X,X,X,,X,
+0011,,X,,,,
+0012,X,,X,,X,
+0014,,,,X,,
+0015,,X,,X,,
+0016,X,X,,X,X,X
+0017,,,,,X,X
+0018,X,,X,X,X,X
+0019,,X,X,X,,X

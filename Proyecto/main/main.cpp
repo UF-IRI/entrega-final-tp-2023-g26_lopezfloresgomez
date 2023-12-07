@@ -48,7 +48,7 @@ files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA
     cantAsist = static_cast<u_int>(fileSize / ((sizeof(Asistencia)) + sizeof(Inscripcion)))-1;
 
     asistencias = new Asistencia[cantasist];
-
+/*
     errorArchivoBinario = readFileBinary(archivobinlee, asistencias);
     archivobinlee.close();
     if(errorArchivoBinario == files :: errOpen){
@@ -57,14 +57,13 @@ files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA
         delete []Clases;
         return files :: errOpen;
     }
-
-
+*/
     ifstream infileClientes("../iriClientesGYM.csv");
     errorArchivoUsuarios = readFileUsers(infileClientes, Clientes, cantClientes);
     infileClientes.close();
     if(errorArchivoUsuarios == files :: errOpen){
-        cout<<"no se pudo abrir el archivo de clientes";
-        cout<<endl;
+        cout << "No se puede abrir el archivo CLIENTES";
+        cout << endl;
         delete []Clases;
         delete []asistencias;
         return files :: errOpen;
@@ -74,8 +73,8 @@ files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA
     errorArchivoBinarioOUT = writeFileBinary(archivobin, AsistenciaClientes, cantAsistencias);
     archivobin.close();
     if(errorArchivoBinarioOUT == files :: errOpen){
-        cout<<"no se pudo abrir el archivo de escritura de asistencias";
-        cout<<endl;
+        cout << "No se puede abrir el archivo ASISTENCIAS";
+        cout << endl;
         return files :: errOpen;
     }
 
