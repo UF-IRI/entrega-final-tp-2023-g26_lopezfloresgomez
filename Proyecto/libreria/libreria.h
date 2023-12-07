@@ -1,5 +1,5 @@
-#ifndef ARCHIVOS_H
-#define ARCHIVOS_H
+#ifndef LIBRERIA_H
+#define LIBRERIA_H
 
 #include <ctime>
 #include <string>
@@ -8,25 +8,25 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "libreria_global.h"
-
 using namespace std;
 
-typedef std::string str;
+typedef string str;
 typedef unsigned int u_int;
 
-// Declaro Errores
-enum ErroresClientes  { ErrEstado = -7, ErrIdClienteinx = -6, ErrNombre = -5, ErrApellido = -4, ErrTelefono = -3, ErrMuyViejo = -2, ErrMuyJoven = -1, ExitoCliente = 1 };
-enum ErroresClases  { ErrEspacioCrearAsistencia = -5, ErrClaseRepetida = -4, ErrSuperposicionDeHorarios = -3, ErrCupos = -2, ErrIdClaseinx = -1, ExitoClase = 1 };
-enum ErroresAsistencias  { ErrEspacio = -1, ExitoAsistencias = 1, ExitoCrearAsistencias = 2 };
-enum ErroresDia  { ErrDia = -1, ExitoDia = 1 };
+//Declaro Errores
+enum Clientes  { ErrEstado = -7, ErrIdClienteinx = -6, ErrNombre = -5, ErrApellido = -4, ErrTelefono = -3, ErrMuyViejo = -2, ErrMuyJoven = -1, ExitoCliente = 1 };
+enum Clases  { ErrEspacioCrearAsistencia = -5, ErrClaseRepetida = -4, ErrSuperposicionDeHorarios = -3, ErrCupos = -2, ErrIdClaseinx = -1, ExitoClase = 1 };
+enum Asistencias  { ErrEspacio = -1, ExitoAsistencias = 1, ExitoCrearAsistencias = 2 };
+enum Dia  { ErrDia = -1, ExitoDia = 1 };
 
-typedef enum ErroresClientes  eErroresClientes;
-typedef enum ErroresClases eErroresClases;
-typedef enum ErroresAsistencias   eErroresAsistencias;
-typedef enum ErroresDia eErroresDia;
 
-// Declaro estructuras
+typedef enum Clientes  eCliente;
+typedef enum Clases  eClase;
+typedef enum Asistencias   eAsistencia;
+typedef enum Dia eDia;
+
+
+//Declaro estructuras
 typedef struct
 {
     u_int idClase;
@@ -44,7 +44,7 @@ typedef struct
 typedef struct
 {
     u_int idClase;
-    str nombre;
+    string nombre;
     float horario;
     u_int cuposActuales;
     u_int cuposMax;
@@ -54,53 +54,35 @@ typedef struct
 typedef struct
 {
     u_int idCliente;
-    str nombre, apellido, email, telefono;
-    str fechanacimiento;
+    string nombre, apellido, email, telefono;
+    string fechanacimiento;
     int estado;
 
 } ClientesGYM;
 
-// Declaro errores
-enum ErroresArchivos {ErrorApertura = -2, ErrorEscritura = -1, ExitoOperacion = 1};
-typedef enum ErroresArchivos  eErroresArchivos;
+//Buscar
+eCliente BuscarIdCliente(ClientesGYM *Clientes, u_int idCliente, u_int cantClientes, ClientesGYM &cliente);
+eClase BuscarIdClase(ClasesGym *Clases, u_int idClase, u_int cantClases, ClasesGym &clase);
+eClase BuscarIdClase(ClasesGym *Clases, u_int idClase, u_int cantClases);
+eAsistencia BuscarAsistenicaCliente(u_int idCliente, u_int idClase, Asistencia *&AsistenciaClientes, Asistencia &AsistenciaCliente, u_int &cantAsistencias);
+eAsistencia BuscarAsistenicaCliente(u_int idClase, u_int idCliente,  Asistencia *&AsistenciaClientes);
+eClase BuscarIdClaseEnInscripciones(Asistencia AsistenciaCliente, u_int idClase);
 
-// Declaro Funciones
-eErroresArchivos leerArchivoClientes(ifstream &archivoClientes, ClientesGYM *&clientes, u_int &cantClientes);
-eErroresArchivos leerArchivoClases(ifstream &archivoClases, ClasesGym *&clases, u_int &cantClases);
-eErroresArchivos LeerArchivoBinario(ifstream &archivoBinario, Asistencia *asistencias);
-eErroresArchivos EscribirArchivoBinario(ofstream &archivoBinario, Asistencia *&asistenciaClientes, u_int &cantAsistencias);
+//Filtrar
+eCliente FiltroDeCliente(ClientesGYM *Clientes, u_int idCliente, u_int cantClientes);
+eClase FiltroDeClase(ClasesGym *Clases, u_int idCliente, u_int idClase, Asistencia *&AsistenciaClientes, u_int cantclases, u_int &CantAsistencias);
+eDia FiltroFecha();
 
-// Buscar
-eErroresClientes BuscarIdCliente(ClientesGYM *clientes, u_int idCliente, u_int cantClientes, ClientesGYM &cliente);
-ErroresClases BuscarIdClase(ClasesGym *clases, u_int idClase, u_int cantClases, ClasesGym &clase);
-ErroresClases BuscarIdClase(ClasesGym *clases, u_int idClase, u_int cantClases);
-eErroresAsistencias BuscarAsistenicaCliente(u_int idCliente, u_int idClase, Asistencia *&asistenciaClientes, Asistencia &asistenciaCliente, u_int &cantAsistencias);
-eErroresAsistencias BuscarAsistenicaCliente(u_int idClase, u_int idCliente,  Asistencia *&asistenciaClientes);
-ErroresClases BuscarIdClaseEnInscripciones(Asistencia asistenciaCliente, u_int idClase);
+//resize
+Asistencia* resizeClientes(Asistencia *AsistenciaClientes, u_int CantAsistencias, u_int nuevoTam, eAsistencia &eAsist);
+Inscripcion* resizeInscripcion(Asistencia *AsistenciaClientes, u_int cantinscripciones, u_int nuevoTam, eAsistencia &eAsist2);
 
-// Filtrar
-eErroresClientes FiltroDeCliente(ClientesGYM *clientes, u_int idCliente, u_int cantClientes);
-ErroresClases FiltroDeClase(ClasesGym *clases, u_int idCliente, u_int idClase, Asistencia *&asistenciaClientes, u_int cantClases, u_int &CantAsistencias);
-eErroresDia FiltroFecha();
+//comparar
+eClase CompararClaseInscripciones(ClasesGym clase, Asistencia AsistenciaCliente, ClasesGym *Clases, u_int cantclases);
 
-// Resize
-Asistencia* resizeClientes(Asistencia *asistenciaClientes, u_int CantAsistencias, u_int nuevoTam, eErroresAsistencias &eAsist);
-Inscripcion* resizeInscripcion(Asistencia *asistenciaClientes, u_int cantInscripciones, u_int nuevoTam, eErroresAsistencias &eAsist2);
-
-// Comparar
-ErroresClases CompararClaseInscripciones(ClasesGym clase, Asistencia asistenciaCliente, ClasesGym *clases, u_int cantClases);
-
-// Controlar archivo binario
-void ordenarclasesinscriptas(Asistencia* asistenciaClientes, int cantAsistencias);
-void eliminarclaserepetida(Asistencia* asistenciaClientes, int cantAsistencias);
-void ordenarlasclaseseliminadasalfinal(Asistencia* asistenciaClientes, int cantAsistencias);
-ErroresClases CompararClaseInscripciones(Asistencia* asistenciaClientes, ClasesGym *clases, u_int cantClases);
-
-
-class LIBRERIA_EXPORT Libreria
-{
-public:
-    Libreria();
-};
-
+//Controlar archivo binario
+void ordenarclasesinscriptas(Asistencia* asistencias, int cantAsistencias);
+void eliminarclaserepetida(Asistencia* asistencias, int cantAsistencias);
+void ordenarlasclaseseliminadasalfinal(Asistencia* asistencias, int cantAsistencias);
+eClase CompararClaseInscripciones(Asistencia* asistencias, ClasesGym *Clases, u_int cantclases);
 #endif // LIBRERIA_H

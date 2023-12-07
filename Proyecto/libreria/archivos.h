@@ -1,18 +1,18 @@
-/*#ifndef ARCHIVOS_H
+#ifndef ARCHIVOS_H
 #define ARCHIVOS_H
+#include "libreria.h"
 
-#include <libreria.h>
+//errores
+enum Archivos {ErrorApertura = -2, ErrorEscritura = -1, ExitoOperacion = 1};
+typedef enum Archivos  eArchivos;
 
-// Enumeración de errores
-enum ArchivoError { ErrorApertura = -2, ErrorEscritura = -1, ExitoOperacion = 1 };
-typedef enum ArchivoError eArchivoError;
+//Declaro Funciones
+eArchivos leerArchivoClientes(ifstream &infileClientes, ClientesGYM *&Clientes, u_int &cantClientes);
+eArchivos leerArchivoClases(ifstream &infileClases, ClasesGym *&Clases, u_int &cantClases);
+eArchivos LeerArchivoBinario(ifstream &archivobinlee, Asistencia *asistencias);
+eArchivos EscribirArchivoBinario(ofstream &archivobin, Asistencia *&AsistenciaClientes, u_int &cantAsistencias);
 
-// Declaración de funciones
-eArchivoError leerArchivoClientes(ifstream &archivoClientes, ClientesGYM *&clientes, u_int &cantidadClientes);
-eArchivoError leerArchivoClases(ifstream &archivoClases, ClasesGym *&clases, u_int &cantidadClases);
-eArchivoError leerArchivoBinario(ifstream &archivoBin, Asistencia *asistencias);
-eArchivoError escribirArchivoBinario(ofstream &archivoBin, Asistencia *&asistenciaClientes, u_int &cantidadAsistencias);
+
 
 
 #endif // ARCHIVOS_H
-*/
