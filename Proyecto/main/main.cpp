@@ -1,19 +1,18 @@
 #include "archivos.h"
 #include "archivos.cpp"
+#include "gimnasio.cpp"
 #include "libreria.h"
-#include "time.h"
-
 
 int main() {
     srand(static_cast<unsigned int>(time(nullptr)));
-    //Asistencia *Asistencias;
-    //u_int cantAsist;
     u_int cantclases = 0, cantClientes = 0, reservas = 5000, cantAsistencias = 0, cantAsist = 0, cantasist = 154, j = 0;
-    classGYM *Clases;
-    usersGYM *Clientes;
+    ClasesGym *Clases;
+    ClientesGYM *Clientes;
     Asistencia *AsistenciaClientes, *asistencias;
+    eErroresClientes errCliente;
+    eErroresClases errClase;
+    eErroresArchivos errArchivoclase, errArchivocliente, errBinario;
 
-    files errorArchivoClases, errorArchivoBinario, errorArchivoBinarioOUT, errorArchivoUsuarios;
     time_t t = time(0);
     tm* fecha_hora = localtime(&t);
     fecha_hora->tm_hour = 0;
@@ -23,68 +22,132 @@ int main() {
     string aux;
     time_t timestamp = mktime(fecha_hora);
     aux = to_string(timestamp);
-    /*
-files readFileUsers(ifstream &fileUsers, usersGYM *&users, u_int &cantU);
-files readFileClasses(ifstream &fileClasses, classGYM *&classes, u_int &cantC);
-files readFileBinary(ifstream &fileBinRead, Asistencia *assist);
-files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA);
 
-    */
     ifstream infileClases("../iriClasesGYM.csv");
-    errorArchivoClases = readFileClasses(infileClases, Clases, cantclases);
+    errArchivoclase = leerArchivoClases(infileClases, Clases, cantclases);
     infileClases.close();
-    if(errorArchivoClases == files :: errOpen){
+    if (errArchivoclase == eErroresArchivos::ErrorApertura) {
         cout << "no se pudo abrir el archivo de clases";
         cout << endl;
-        return files :: errOpen;
+        return eErroresArchivos::ErrorApertura;
     }
 
-
     ifstream archivobinlee("../asistencias_1697673600000.dat", ios::binary);
-
     archivobinlee.seekg(0, std::ios::end);
     std::streampos fileSize = archivobinlee.tellg();
     archivobinlee.seekg(0, std::ios::beg);
-    cantAsist = static_cast<u_int>(fileSize / ((sizeof(Asistencia)) + sizeof(Inscripcion)))-1;
+    cantAsist = static_cast<u_int>(fileSize / ((sizeof(Asistencia)) + sizeof(Inscripcion))) - 1;
 
     asistencias = new Asistencia[cantasist];
-/*
-    errorArchivoBinario = readFileBinary(archivobinlee, asistencias);
+
+    errBinario = LeerArchivoBinario(archivobinlee, asistencias);
     archivobinlee.close();
-    if(errorArchivoBinario == files :: errOpen){
-        cout<<"no se pudo abrir el archivo de asistencias";
-        cout<<endl;
-        delete []Clases;
-        return files :: errOpen;
+    if (errBinario == eErroresArchivos::ErrorApertura) {
+        cout << "no se pudo abrir el archivo de asistencias";
+        cout << endl;
+        delete[] Clases;
+        return eErroresArchivos::ErrorApertura;
     }
-*/
+
     ifstream infileClientes("../iriClientesGYM.csv");
-    errorArchivoUsuarios = readFileUsers(infileClientes, Clientes, cantClientes);
+    errArchivocliente = leerArchivoClientes(infileClientes, Clientes, cantClientes);
     infileClientes.close();
-    if(errorArchivoUsuarios == files :: errOpen){
-        cout << "No se puede abrir el archivo CLIENTES";
+    if (errArchivocliente == eErroresArchivos::ErrorApertura) {
+        cout << "no se pudo abrir el archivo de clientes";
         cout << endl;
-        delete []Clases;
-        delete []asistencias;
-        return files :: errOpen;
+        delete[] Clases;
+        delete[] asistencias;
+        return eErroresArchivos::ErrorApertura;
     }
 
-    ofstream archivobin("../asistencias_" + aux + ".dat", ios :: binary);
-    errorArchivoBinarioOUT = writeFileBinary(archivobin, AsistenciaClientes, cantAsistencias);
+    while (j < reservas) {
+        for (u_int i = 0; i != 1; i++) {
+            u_int idCliente = rand() % cantClientes, idClase = rand() % cantclases;
+
+            eErroresDia errFecha = FiltroFecha();
+            if (errFecha == eErroresDia::ErrDia) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, no se pueden reservar los dias sabados";
+                cout << endl;
+                break;
+            }
+
+            errCliente = FiltroDeCliente(Clientes, idCliente, cantClientes);
+            if (errCliente == eErroresClientes::ErrNombre) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, el Nombre esta mal escrito";
+                cout << endl;
+                break;
+            } else if (errCliente == eErroresClientes::ErrApellido) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, el Apellido esta mal escrito";
+                cout << endl;
+                break;
+            } else if (errCliente == eErroresClientes::ErrTelefono) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, el Telefono esta mal escrito";
+                cout << endl;
+                break;
+            } else if (errCliente == eErroresClientes::ErrEstado) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, la cuota no esta al dia";
+                cout << endl;
+                break;
+            } else if (errCliente == eErroresClientes::ErrMuyJoven) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, no llega a la edad permitida";
+                cout << endl;
+                break;
+            } else if (errCliente == eErroresClientes::ErrMuyViejo) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, excede la edad permitida";
+                cout << endl;
+                break;
+            } else if (errCliente == eErroresClientes::ErrIdClienteinx) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, su id no esta registrada";
+                cout << endl;
+                break;
+            }
+
+            errClase = FiltroDeClase(Clases, idCliente, idClase, AsistenciaClientes, cantclases, cantAsistencias);
+            if (errClase == eErroresClases::ErrCupos) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, no hay cupos suficientes";
+                cout << endl;
+                break;
+            } else if (errClase == eErroresClases::ErrClaseRepetida) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, ya reservo esta clase";
+                cout << endl;
+                break;
+            } else if (errClase == eErroresClases::ErrSuperposicionDeHorarios) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, ya tiene otra clase en ese horario";
+                cout << endl;
+                break;
+            } else if (errClase == eErroresClases::ErrEspacioCrearAsistencia) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, el espacio del programa fallo";
+                cout << endl;
+                break;
+            } else if (errClase == eErroresClases::ErrIdClaseinx) {
+                cout << "Lo lamento la reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " no fue realizada, la id de clase que eligio no existe";
+                cout << endl;
+                break;
+            }
+
+            cout << "La reserva del Cliente id: " << idCliente << " para la Clase id: " << idClase << " fue realizada con exito";
+            cout << endl;
+        }
+
+        j++;
+    }
+
+    ofstream archivobin("../asistencias_" + aux + ".dat", ios::binary);
+    eErroresArchivos errArchivoBinario = EscribirArchivoBinario(archivobin, AsistenciaClientes, cantAsistencias);
     archivobin.close();
-    if(errorArchivoBinarioOUT == files :: errOpen){
-        cout << "No se puede abrir el archivo ASISTENCIAS";
+    if (errArchivoBinario == eErroresArchivos::ErrorApertura) {
+        cout << "no se pudo abrir el archivo de escritura de asistencias";
         cout << endl;
-        return files :: errOpen;
+        return eErroresArchivos::ErrorApertura;
     }
 
-    for(u_int i = 0; i < cantasist; i++){
-        delete[]asistencias[i].CursosInscriptos;
+    for (u_int i = 0; i < cantasist; i++) {
+        delete[] asistencias[i].CursosInscriptos;
     }
-    delete [] Clases;
-    delete [] Clientes;
-    delete [] asistencias;
-    delete [] AsistenciaClientes;
+    delete[] Clases;
+    delete[] Clientes;
+    delete[] asistencias;
+    delete[] AsistenciaClientes;
 
     return 0;
 }

@@ -1,7 +1,5 @@
-#ifndef LIBRERIA_H
-#define LIBRERIA_H
-
-#include "libreria_global.h"
+#ifndef ARCHIVOS_H
+#define ARCHIVOS_H
 
 #include <ctime>
 #include <string>
@@ -10,54 +8,93 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "libreria_global.h"
+
 using namespace std;
 
-typedef string str;
+typedef std::string str;
 typedef unsigned int u_int;
 
-enum Asistencias  { ErrEspacio = -1, ExitoAsistencias = 1, ExitoCrearAsistencias = 2 };
-typedef enum Asistencias filesA;
+// Declaro Errores
+enum ErroresClientes  { ErrEstado = -7, ErrIdClienteinx = -6, ErrNombre = -5, ErrApellido = -4, ErrTelefono = -3, ErrMuyViejo = -2, ErrMuyJoven = -1, ExitoCliente = 1 };
+enum ErroresClases  { ErrEspacioCrearAsistencia = -5, ErrClaseRepetida = -4, ErrSuperposicionDeHorarios = -3, ErrCupos = -2, ErrIdClaseinx = -1, ExitoClase = 1 };
+enum ErroresAsistencias  { ErrEspacio = -1, ExitoAsistencias = 1, ExitoCrearAsistencias = 2 };
+enum ErroresDia  { ErrDia = -1, ExitoDia = 1 };
 
-enum Clientes  { ErrEstado = -7, ErrIdClienteinx = -6, ErrNombre = -5, ErrApellido = -4, ErrTelefono = -3, ErrMuyViejo = -2, ErrMuyJoven = -1, ExitoCliente = 1 };
-enum Clases  { ErrEspacioCrearAsistencia = -5, ErrClaseRepetida = -4, ErrSuperposicionDeHorarios = -3, ErrCupos = -2, ErrIdClaseinx = -1, ExitoClase = 1 };
-typedef enum Clientes  filesCLI;
-typedef enum Clases  filesCLA;
+typedef enum ErroresClientes  eErroresClientes;
+typedef enum ErroresClases eErroresClases;
+typedef enum ErroresAsistencias   eErroresAsistencias;
+typedef enum ErroresDia eErroresDia;
 
-struct Inscripcion // bin
+// Declaro estructuras
+typedef struct
 {
-    unsigned int idCurso;// creemos que es idclase
-    time_t fechaInscripcion;// horario de incripcion de la persona, entre las 19 a 22, a mi criterio. con 24 horas de anticipacion, restriccion
-};
-
-struct Asistencia
-{
-    int idCliente;
-    int cantInscriptos;
-    Inscripcion* CursosInscriptos;
-};
-
-typedef struct Inscripcion Inscripcion;
-typedef struct Asistencia Asistencia;
-
-typedef struct {
-    string nombreClase;
-    float horario; // posible horario de clase
     u_int idClase;
-    u_int cupos;
-    u_int cuposMax; //cupo maximo de personas por clase en este horario
-} classGYM;
+    time_t fechaInscripcion;
+
+} Inscripcion;
 
 typedef struct
 {
-    string nombre;
-    string apellido;
-    string email;
-    string fechaNac;
-    string telefono;
-    int idCliente;
-    int estado;
-} usersGYM;
+    u_int idCliente, cantInscriptos;
+    Inscripcion* CursosInscriptos;
 
+} Asistencia;
+
+typedef struct
+{
+    u_int idClase;
+    str nombre;
+    float horario;
+    u_int cuposActuales;
+    u_int cuposMax;
+
+} ClasesGym;
+
+typedef struct
+{
+    u_int idCliente;
+    str nombre, apellido, email, telefono;
+    str fechanacimiento;
+    int estado;
+
+} ClientesGYM;
+
+// Declaro errores
+enum ErroresArchivos {ErrorApertura = -2, ErrorEscritura = -1, ExitoOperacion = 1};
+typedef enum ErroresArchivos  eErroresArchivos;
+
+// Declaro Funciones
+eErroresArchivos leerArchivoClientes(ifstream &archivoClientes, ClientesGYM *&clientes, u_int &cantClientes);
+eErroresArchivos leerArchivoClases(ifstream &archivoClases, ClasesGym *&clases, u_int &cantClases);
+eErroresArchivos LeerArchivoBinario(ifstream &archivoBinario, Asistencia *asistencias);
+eErroresArchivos EscribirArchivoBinario(ofstream &archivoBinario, Asistencia *&asistenciaClientes, u_int &cantAsistencias);
+
+// Buscar
+eErroresClientes BuscarIdCliente(ClientesGYM *clientes, u_int idCliente, u_int cantClientes, ClientesGYM &cliente);
+ErroresClases BuscarIdClase(ClasesGym *clases, u_int idClase, u_int cantClases, ClasesGym &clase);
+ErroresClases BuscarIdClase(ClasesGym *clases, u_int idClase, u_int cantClases);
+eErroresAsistencias BuscarAsistenicaCliente(u_int idCliente, u_int idClase, Asistencia *&asistenciaClientes, Asistencia &asistenciaCliente, u_int &cantAsistencias);
+eErroresAsistencias BuscarAsistenicaCliente(u_int idClase, u_int idCliente,  Asistencia *&asistenciaClientes);
+ErroresClases BuscarIdClaseEnInscripciones(Asistencia asistenciaCliente, u_int idClase);
+
+// Filtrar
+eErroresClientes FiltroDeCliente(ClientesGYM *clientes, u_int idCliente, u_int cantClientes);
+ErroresClases FiltroDeClase(ClasesGym *clases, u_int idCliente, u_int idClase, Asistencia *&asistenciaClientes, u_int cantClases, u_int &CantAsistencias);
+eErroresDia FiltroFecha();
+
+// Resize
+Asistencia* resizeClientes(Asistencia *asistenciaClientes, u_int CantAsistencias, u_int nuevoTam, eErroresAsistencias &eAsist);
+Inscripcion* resizeInscripcion(Asistencia *asistenciaClientes, u_int cantInscripciones, u_int nuevoTam, eErroresAsistencias &eAsist2);
+
+// Comparar
+ErroresClases CompararClaseInscripciones(ClasesGym clase, Asistencia asistenciaCliente, ClasesGym *clases, u_int cantClases);
+
+// Controlar archivo binario
+void ordenarclasesinscriptas(Asistencia* asistenciaClientes, int cantAsistencias);
+void eliminarclaserepetida(Asistencia* asistenciaClientes, int cantAsistencias);
+void ordenarlasclaseseliminadasalfinal(Asistencia* asistenciaClientes, int cantAsistencias);
+ErroresClases CompararClaseInscripciones(Asistencia* asistenciaClientes, ClasesGym *clases, u_int cantClases);
 
 
 class LIBRERIA_EXPORT Libreria

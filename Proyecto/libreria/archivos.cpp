@@ -1,173 +1,161 @@
-#include "archivos.h"
+#include <archivos.h>
+#include <libreria.h>
 
-files readFileUsers(ifstream &fileUsers, usersGYM *&users, u_int &cantU){
+// Agregar longitud por derecha
+eErroresArchivos leerArchivoClientes(ifstream &archivoClientes, ClientesGYM *&clientes, u_int &cantClientes){
 
     int i = 0;
 
-    if (!fileUsers.is_open()) {
-        return files :: errOpen;
+    if (!archivoClientes.is_open()) {
+
+        return eErroresArchivos::ErrorApertura;
     }
 
     string header;
-    getline(fileUsers, header);
+    getline(archivoClientes, header);
 
     string line;
     char delimiter = ',';
 
-    while(getline(fileUsers, line))
-        cantU++;
+    while(getline(archivoClientes, line))
+        cantClientes++;
 
-    fileUsers.clear();
-    fileUsers.seekg(0, std::ios::beg);
+    archivoClientes.clear();
+    archivoClientes.seekg(0, std::ios::beg);
 
-    users = new usersGYM[cantU];
+    clientes = new ClientesGYM[cantClientes];
 
-    getline(fileUsers, header);
+    getline(archivoClientes, header);
     string auxidCliente, auxnombre, auxapellido, auxemail, auxtelefono, auxfechanacimiento, auxestado;
     stringstream ss;
-    while(!fileUsers.eof() && getline(fileUsers, line)) {
+    while(!archivoClientes.eof() && getline(archivoClientes, line)) {
         ss.clear();
-        ss<<line;
-        getline(ss,auxidCliente,delimiter);
-        (users[i]).idCliente = stoi(auxidCliente);
+        ss << line;
+        getline(ss, auxidCliente, delimiter);
+        (clientes[i]).idCliente = stoi(auxidCliente);
 
-        getline(ss,auxnombre,delimiter);
-        (users[i]).nombre = auxnombre;
+        getline(ss, auxnombre, delimiter);
+        (clientes[i]).nombre = auxnombre;
 
-        getline(ss,auxapellido,delimiter);
-        (users[i]).apellido = auxapellido;
+        getline(ss, auxapellido, delimiter);
+        (clientes[i]).apellido = auxapellido;
 
-        getline(ss,auxemail,delimiter);
-        (users[i]).email = auxemail;
+        getline(ss, auxemail, delimiter);
+        (clientes[i]).email = auxemail;
 
-        getline(ss,auxtelefono,delimiter);
-        (users[i]).telefono = auxtelefono;
+        getline(ss, auxtelefono, delimiter);
+        (clientes[i]).telefono = auxtelefono;
 
-        getline(ss,auxfechanacimiento,delimiter);
-        (users[i]).fechaNac = auxfechanacimiento;
+        getline(ss, auxfechanacimiento, delimiter);
+        (clientes[i]).fechanacimiento = auxfechanacimiento;
 
-        getline(ss,auxestado,delimiter);
-        (users[i]).estado = stoi(auxestado);
+        getline(ss, auxestado, delimiter);
+        (clientes[i]).estado = stoi(auxestado);
 
         i++;
     }
-    return files :: success;
+
+    return eErroresArchivos::ExitoOperacion;
 }
 
-files readFileClasses(ifstream &fileClasses, classGYM *&classes, u_int &cantC){
+eErroresArchivos leerArchivoClases(ifstream &archivoClases, ClasesGym *&clases, u_int &cantClases){
+
     int i = 0;
 
-    if (!fileClasses.is_open()) {
-        return files :: errOpen;
+    if (!archivoClases.is_open()) {
+
+        return eErroresArchivos::ErrorApertura;
     }
 
     string header;
-    getline(fileClasses, header);
+    getline(archivoClases, header);
 
     string line;
     char delimiter = ',';
 
-    while(getline(fileClasses, line))
-        cantC++;
+    while(getline(archivoClases, line))
+        cantClases++;
 
-    fileClasses.clear();
-    fileClasses.seekg(0, std::ios::beg);
+    archivoClases.clear();
+    archivoClases.seekg(0, std::ios::beg);
 
-    classes = new classGYM[cantC];
+    clases = new ClasesGym[cantClases];
 
-    getline(fileClasses, header);
+    getline(archivoClases, header);
     string auxidClase, auxnombre, auxhorario;
     stringstream ss;
-    while(!fileClasses.eof() && getline(fileClasses, line)) {
+    while(!archivoClases.eof() && getline(archivoClases, line)) {
         ss.clear();
-        ss<<line;
-        getline(ss,auxidClase,delimiter);
-        (classes[i]).idClase = stoi(auxidClase);
+        ss << line;
+        getline(ss, auxidClase, delimiter);
+        (clases[i]).idClase = stoi(auxidClase);
 
-        getline(ss,auxnombre,delimiter);
-        (classes[i]).nombreClase = auxnombre;
+        getline(ss, auxnombre, delimiter);
+        (clases[i]).nombre = auxnombre;
 
-        getline(ss,auxhorario,delimiter);
-        (classes[i]).horario = stof(auxhorario);
+        getline(ss, auxhorario, delimiter);
+        (clases[i]).horario = stof(auxhorario);
 
         if(stoi(auxidClase)>0 && stoi(auxidClase)<6){
-            (classes[i]).cuposMax=45;
-            (classes[i]).cupos=0;
+            (clases[i]).cuposMax = 45;
+            (clases[i]).cuposActuales = 0;
         }
         else if(stoi(auxidClase)>5 && stoi(auxidClase)<12){
-            (classes[i]).cuposMax=25;
-            (classes[i]).cupos=0;
+            (clases[i]).cuposMax = 25;
+            (clases[i]).cuposActuales = 0;
         }
         else if(stoi(auxidClase)>11 && stoi(auxidClase)<18){
-            (classes[i]).cuposMax=15;
-            (classes[i]).cupos=0;
+            (clases[i]).cuposMax = 15;
+            (clases[i]).cuposActuales = 0;
         }
         else if(stoi(auxidClase)>17 && stoi(auxidClase)<24){
-            (classes[i]).cuposMax=40;
-            (classes[i]).cupos=0;
+            (clases[i]).cuposMax = 40;
+            (clases[i]).cuposActuales = 0;
         }
         else if(stoi(auxidClase)>23 && stoi(auxidClase)<30){
-            (classes[i]).cuposMax=50;
-            (classes[i]).cupos=0;
+            (clases[i]).cuposMax = 50;
+            (clases[i]).cuposActuales = 0;
         }
         else if(stoi(auxidClase)>29 && stoi(auxidClase)<34){
-            (classes[i]).cuposMax=30;
-            (classes[i]).cupos=0;
+            (clases[i]).cuposMax = 30;
+            (clases[i]).cuposActuales = 0;
         }
         else if(stoi(auxidClase)>33 && stoi(auxidClase)<61){
-            (classes[i]).cuposMax=30;
-            (classes[i]).cupos=0;
+            (clases[i]).cuposMax = 30;
+            (clases[i]).cuposActuales = 0;
         }
 
         i++;
     }
 
-    return files :: success;
+    return eErroresArchivos::ExitoOperacion;
 }
 
-files writeFileBinary(ofstream &fileBin, Asistencia *&clientAssist, u_int &cantA){
-    if (fileBin.is_open()) {
-        for (u_int i=0; i < cantA; i++) {
-            fileBin.write((char*)&clientAssist[i].idCliente, sizeof(u_int));
-            fileBin.write((char*)&clientAssist[i].cantInscriptos, sizeof(u_int));
-            for(int j = 0; j < clientAssist[i].cantInscriptos; j++) {
-                fileBin.write((char*)&clientAssist[i].CursosInscriptos[j], sizeof(Inscripcion));
-            }
-        }
-        return files :: success;
-    }
-    return files :: errOpen;
-}
+eErroresArchivos LeerArchivoBinario(ifstream &archivobinlee, Asistencia *asistencias){
 
-
-/*
-files readFileBinary(ifstream &fileBinRead, Asistencia *assist){
-
-    if (!fileBinRead.is_open()) {
+    if (!archivobinlee.is_open()) {
         std::cerr << "Error al abrir el archivo." << std::endl;
-        return files :: errOpen;
+        return eErroresArchivos::ErrorApertura;
     }
 
-
-    if (!fileBinRead.is_open()){
-        delete [] assist;
-        return files :: errOpen;
+    if (!archivobinlee.is_open()){
+        delete [] asistencias;
+        return eErroresArchivos::ErrorApertura;
     }
 
+    archivobinlee.clear();
+    archivobinlee.seekg(0);
 
-    fileBinRead.clear();
-    fileBinRead.seekg(0);
+    Asistencia *aux = asistencias;
 
-    Asistencia *aux = assist;
-
-    while (!fileBinRead.eof()) {
-        fileBinRead.read((char *)&aux->idCliente, sizeof(u_int));
-        fileBinRead.read((char *)&aux->cantInscriptos, sizeof(u_int));
+    while (!archivobinlee.eof()) {
+        archivobinlee.read((char *)&aux->idCliente, sizeof(u_int));
+        archivobinlee.read((char *)&aux->cantInscriptos, sizeof(u_int));
 
         Inscripcion *registered = new Inscripcion[aux->cantInscriptos];
         Inscripcion *auxInscriptions = registered;
         for (u_int i = 0; i < aux->cantInscriptos; i++) {
-            fileBinRead.read((char *)auxInscriptions, sizeof(Inscripcion));
+            archivobinlee.read((char *)auxInscriptions, sizeof(Inscripcion));
             auxInscriptions++;
         }
         aux->CursosInscriptos = registered;
@@ -175,9 +163,22 @@ files readFileBinary(ifstream &fileBinRead, Asistencia *assist){
         aux++;
     }
 
-
-    return files :: success;
-
+    return eErroresArchivos::ExitoOperacion;
 }
 
-*/
+eErroresArchivos EscribirArchivoBinario(ofstream &archivobin, Asistencia *&asistenciaClientes, u_int &cantAsistencias){
+
+    if (archivobin.is_open()) {
+        for (u_int i=0; i<cantAsistencias; i++) {
+            archivobin.write((char*)&asistenciaClientes[i].idCliente, sizeof(u_int));
+            archivobin.write((char*)&asistenciaClientes[i].cantInscriptos, sizeof(u_int));
+            for(u_int j = 0; j < asistenciaClientes[i].cantInscriptos; j++) {
+                archivobin.write((char*)&asistenciaClientes[i].CursosInscriptos[j], sizeof(Inscripcion));
+            }
+        }
+
+        return eErroresArchivos::ExitoOperacion;
+    }
+
+    return eErroresArchivos::ErrorApertura;
+}
