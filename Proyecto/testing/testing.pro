@@ -1,4 +1,4 @@
-TEMPLATE = app
+EMPLATE = app
 
 CONFIG += c++17
 

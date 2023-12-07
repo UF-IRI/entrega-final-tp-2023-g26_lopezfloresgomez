@@ -86,3 +86,4 @@ void eliminarclaserepetida(Asistencia* asistencias, int cantAsistencias);
 void ordenarlasclaseseliminadasalfinal(Asistencia* asistencias, int cantAsistencias);
 eClase CompararClaseInscripciones(Asistencia* asistencias, ClasesGym *Clases, u_int cantclases);
 #endif // LIBRERIA_H
+ //JULAI
